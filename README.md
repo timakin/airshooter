@@ -20,6 +20,7 @@ cron PUT /api/notifications/expire
 ### Messaging
 
 ```
-POST /api/messages
+POST /api/messages (pass the combo of `from` and `to`)
+GET /api/messages (pass the combo of `from` and `to`)
 GET /api/messages/:id
 ```
