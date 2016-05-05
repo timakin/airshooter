@@ -6,7 +6,11 @@ import (
 )
 
 type Message struct {
-	Text string `json: "text"`
+	Text      string `json: "text"`
+	From      string
+	To        string
+	ThreadId  int
+	CreatedAt int
 }
 
 func PostMessage(c echo.Context) error {
