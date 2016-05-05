@@ -2,24 +2,15 @@ package controller
 
 import (
 	"github.com/labstack/echo"
+	m "github.com/timakin/airshooter/model"
 	"net/http"
 )
 
-// from, to = id, type
-// CreatedAt, Expiry = unixtimestamp
-type Notification struct {
-	Title     string `json: "title"`
-	Text      string `json: "text"`
-	From      string `json: "from"`
-	To        string `json: "to"`
-	CreatedAt int    `json: "created_at"`
-	Expiry    int    `json: "expiry"`
-}
-
-type Notifications []Notification
-
 func EnqueueNotification(c echo.Context) error {
-	return c.String(http.StatusOK, "POST enqueue")
+	n := new(m.Notification)
+	title := "test title"
+	n.Title = &title
+	return c.JSON(http.StatusOK, n)
 }
 
 func PublishNotification(c echo.Context) error {
