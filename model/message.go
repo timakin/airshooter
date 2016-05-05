@@ -2,8 +2,8 @@ package model
 
 type Message struct {
 	Text      *string `json: "text"`
-	From      *string
-	To        *string
+	From      *Communicator
+	To        *Communicator
 	ThreadId  *int
 	CreatedAt *int
 }
