@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/engine/standard"
 	"github.com/labstack/echo/middleware"
+	"github.com/timakin/airshooter/controller"
 	"net/http"
 )
 
@@ -19,9 +20,7 @@ func main() {
 	api := e.Group("/api")
 
 	notifications := api.Group("/notifications")
-	notifications.POST("/enqueue", func(c echo.Context) error {
-		return c.String(http.StatusOK, "POST enqueue")
-	})
+	notifications.POST("/enqueue", controller.EnqueueNotification)
 	notifications.PUT("/publish", func(c echo.Context) error {
 		return c.String(http.StatusOK, "PUT publish")
 	})
