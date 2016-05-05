@@ -3,32 +3,40 @@ package main
 import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/engine/standard"
+	"github.com/labstack/echo/middleware"
 	"net/http"
 )
 
 func main() {
 	e := echo.New()
-	e.POST("/api/notifications/enqueue", func(c echo.Context) error {
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	api := e.Group("/api")
+
+	notifications := api.Group("/notifications")
+	notifications.POST("/enqueue", func(c echo.Context) error {
 		return c.String(http.StatusOK, "POST enqueue")
 	})
-	e.PUT("/api/notifications/publish", func(c echo.Context) error {
+	notifications.PUT("/publish", func(c echo.Context) error {
 		return c.String(http.StatusOK, "PUT publish")
 	})
-	e.GET("/api/notifications/subscriptions", func(c echo.Context) error {
+	notifications.GET("/subscriptions", func(c echo.Context) error {
 		return c.String(http.StatusOK, "GET subscriptions")
 	})
-	e.PUT("/api/notifications/subscribe", func(c echo.Context) error {
+	notifications.PUT("/subscribe", func(c echo.Context) error {
 		return c.String(http.StatusOK, "PUT subscribe")
 	})
 
-	e.POST("/api/messages", func(c echo.Context) error {
+	messages := api.Group("/messages")
+	messages.POST("", func(c echo.Context) error {
 		return c.String(http.StatusOK, "POST messages")
 	})
-	e.GET("/api/messages", func(c echo.Context) error {
+	messages.GET("", func(c echo.Context) error {
 		return c.String(http.StatusOK, "GET messages")
 	})
-	e.GET("/api/messages/:id", func(c echo.Context) error {
-		return c.String(http.StatusOK, "GET message"+c.Param("id"))
+	messages.GET("/:id", func(c echo.Context) error {
+		return c.String(http.StatusOK, "GET message "+c.Param("id"))
 	})
 
 	e.Run(standard.New(":3000"))
