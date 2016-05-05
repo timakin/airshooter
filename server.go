@@ -5,12 +5,7 @@ import (
 	"github.com/labstack/echo/engine/standard"
 	"github.com/labstack/echo/middleware"
 	"github.com/timakin/airshooter/controller"
-	"net/http"
 )
-
-type Message struct {
-	Text string `json: "text"`
-}
 
 func main() {
 	e := echo.New()
@@ -26,17 +21,8 @@ func main() {
 	notifications.PUT("/subscriptions", controller.MarkReadNotifications)
 
 	messages := api.Group("/messages")
-	messages.POST("", func(c echo.Context) error {
-		return c.String(http.StatusOK, "POST messages")
-	})
-	messages.GET("", func(c echo.Context) error {
-		m := new(Message)
-		m.Text = "test"
-		return c.JSON(http.StatusOK, m)
-	})
-	messages.GET("/:id", func(c echo.Context) error {
-		return c.String(http.StatusOK, "GET message "+c.Param("id"))
-	})
+	messages.POST("", controller.PostMessage)
+	messages.GET("", controller.GetMessages)
 
 	e.Run(standard.New(":3000"))
 }
