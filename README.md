@@ -24,3 +24,12 @@ POST /api/messages (pass the combo of `from` and `to`)
 GET /api/messages (pass the combo of `from` and `to`)
 GET /api/messages/:id
 ```
+
+### Toolkit
+
+| Framework | Echo |
+| --- | --- |
+| DB | Redis(or MySQL(Q4M)) |
+| Validation | JSV |
+| Auth | JWTAuth |
+
