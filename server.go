@@ -7,6 +7,10 @@ import (
 	"net/http"
 )
 
+type Message struct {
+	Text string `json: "text"`
+}
+
 func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
@@ -33,7 +37,9 @@ func main() {
 		return c.String(http.StatusOK, "POST messages")
 	})
 	messages.GET("", func(c echo.Context) error {
-		return c.String(http.StatusOK, "GET messages")
+		m := new(Message)
+		m.Text = "test"
+		return c.JSON(http.StatusOK, m)
 	})
 	messages.GET("/:id", func(c echo.Context) error {
 		return c.String(http.StatusOK, "GET message "+c.Param("id"))
