@@ -1,20 +1,29 @@
-package dbConnect
+package db
 
 import (
-    "database/sql"
+    "github.com/timakin/airshooter/constant"
 
+    "database/sql"
+    "gopkg.in/gorp.v1"
+    "github.com/pkg/errors"
+
+    m "github.com/timakin/airshooter/model"
     _ "github.com/go-sql-driver/mysql"
 )
 
-var sharedInstance *sql.DB
+var sharedInstance *gorp.DbMap
 
-func GetInstance() *sql.DB {
-    var err error
+// Singleton
+func GetInstance() *gorp.DbMap {
     if sharedInstance == nil {
-        sharedInstance, err = sql.Open("mysql", "root:@/my_database")
+        connection, err := sql.Open("mysql", "root:@/my_database")
         if err != nil {
-            panic(err.Error())
+            errors.Wrap(err, constant.ErrDBConnectionFailed).Error()
         }
+        sharedInstance = &gorp.DbMap{Db: connection, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
+        sharedInstance.AddTableWithName(m.Notification{}, "notifications").SetKeys(true, "Id")
+        sharedInstance.AddTableWithName(m.Message{}, "messages").SetKeys(true, "Id")
     }
     return sharedInstance
 }
+
