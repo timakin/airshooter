@@ -19,10 +19,30 @@ func PostNotification(notification *m.Notification) error {
     return nil
 }
 
-func GetNotification() *m.Notification {
+func GetNotification(id *int64) (*m.Notification, error) {
+    dbConnection, err := GetDBInstance()
+    if err != nil {
+        return nil, err
+    }
 
+    var notification *m.Notification
+    err = dbConnection.SelectOne(notification, "select * from notifications where id=?", id)
+    if err != nil {
+        return nil, errors.Wrap(err, constant.ErrDBSelectionFailed)
+    }
+    return notification, nil
 }
 
-func GetNotificationCollection() []*m.Notification {
+func GetNotificationCollection() ([]*m.Notification, error) {
+    dbConnection, err := GetDBInstance()
+    if err != nil {
+        return nil, err
+    }
 
+    var notifications []*m.Notification
+    _, err = dbConnection.Select(notifications, "select * from notifications order by created_at")
+    if err != nil {
+        return nil, errors.Wrap(err, constant.ErrDBSelectionFailed)
+    }
+    return notifications, nil
 }
