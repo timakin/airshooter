@@ -3,6 +3,16 @@ AirShooter
 
 High-performance Notification and Messaging API
 
+## Preparation
+
+```
+# install depended packages
+$ godep go install
+
+# run with specified packages
+$ godep go run server.go
+```
+
 
 ## API
 
