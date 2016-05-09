@@ -1,18 +1,12 @@
 package controller
 
 import (
-    "github.com/timakin/airshooter/constant"
 	"github.com/labstack/echo"
-    "github.com/pkg/errors"
 	"net/http"
 )
 
-func EnqueueNotification(next echo.HandlerFunc) echo.HandlerFunc {
-    return func(c echo.Context) error {
-        // service
-        // if err.. return err
-        return next(c)
-    }
+func EnqueueNotification(c echo.Context) error {
+    return c.String(http.StatusOK, "/enqueue")
 }
 
 func PublishNotification(c echo.Context) error {
