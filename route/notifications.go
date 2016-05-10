@@ -7,9 +7,9 @@ import (
 
 func AddNotificationAPI(e *echo.Group) (combined *echo.Group) {
 	combined = e.Group("/notifications")
-	combined.POST("/enqueue", controller.EnqueueNotification, controller.AuthClient, controller.ValidateRequest)
-	combined.PUT("/publish", controller.PublishNotification, controller.ValidateRequest)
-	combined.GET("/subscriptions", controller.GetNotifications, controller.ValidateRequest)
-	combined.PUT("/subscriptions", controller.MarkReadNotifications, controller.ValidateRequest)
+	combined.POST("/enqueue", controller.EnqueueNotification)
+	combined.PUT("/publish", controller.PublishNotification)
+	combined.GET("/subscriptions", controller.GetNotifications)
+	combined.PUT("/subscriptions", controller.MarkReadNotifications)
 	return combined
 }
