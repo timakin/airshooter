@@ -1,7 +1,7 @@
 package model
 
 import (
-    "time"
+	"time"
 )
 
 // from, to = id, type
@@ -18,14 +18,14 @@ type Notification struct {
 type Notifications []*Notification
 
 func newNotification(title string, text string, from Communicator, to Communicator, createdAt int64, expiry int64) *Notification {
-    now := time.Now().UnixNano()
+	now := time.Now().UnixNano()
 
-    return &Notification {
-        Title: &title,
-        Text: &text,
-        From: &from,
-        To: &to,
-        CreatedAt: &now,
-        Expiry: &now,
-    }
+	return &Notification{
+		Title:     &title,
+		Text:      &text,
+		From:      &from,
+		To:        &to,
+		CreatedAt: &now,
+		Expiry:    &now,
+	}
 }

@@ -6,7 +6,7 @@ import (
 )
 
 func EnqueueNotification(c echo.Context) error {
-    return c.String(http.StatusOK, "/enqueue")
+	return c.String(http.StatusOK, "/enqueue")
 }
 
 func PublishNotification(c echo.Context) error {

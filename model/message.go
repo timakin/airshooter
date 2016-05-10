@@ -1,7 +1,7 @@
 package model
 
 import (
-    "time"
+	"time"
 )
 
 type Message struct {
@@ -15,13 +15,13 @@ type Message struct {
 type Messages []*Message
 
 func newMessage(text string, from Communicator, to Communicator, threadId int64, createdAt int64) *Message {
-    now := time.Now().UnixNano()
+	now := time.Now().UnixNano()
 
-    return &Message{
-        Text: &text,
-        From: &from,
-        To: &to,
-        ThreadId: &threadId,
-        CreatedAt: &now,
-    }
+	return &Message{
+		Text:      &text,
+		From:      &from,
+		To:        &to,
+		ThreadId:  &threadId,
+		CreatedAt: &now,
+	}
 }

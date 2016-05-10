@@ -1,8 +1,8 @@
 package route
 
 import (
+	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-    "github.com/labstack/echo"
 )
 
 func Init() *echo.Echo {
@@ -11,8 +11,7 @@ func Init() *echo.Echo {
 	e.Use(middleware.Recover())
 
 	api := e.Group("/api")
-    AddNotificationAPI(api)
-    AddMessageAPI(api)
-    return e
+	AddNotificationAPI(api)
+	AddMessageAPI(api)
+	return e
 }
-
