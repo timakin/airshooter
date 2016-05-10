@@ -33,7 +33,7 @@ func GetNotification(id *int64) (*m.Notification, error) {
 	return notification, nil
 }
 
-func GetNotificationCollection() ([]*m.Notification, error) {
+func GetNotifications() ([]*m.Notification, error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
