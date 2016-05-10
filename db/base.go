@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/timakin/airshooter/constant"
+	"github.com/timakin/airshooter/config"
 
 	"database/sql"
 	"github.com/pkg/errors"
@@ -16,7 +17,7 @@ var sharedInstance *gorp.DbMap
 // Singleton
 func GetDBInstance() (*gorp.DbMap, error) {
 	if sharedInstance == nil {
-		connection, err := sql.Open("mysql", "root:@/my_database")
+		connection, err := sql.Open("mysql", config.DBAddress)
 		if err != nil {
 			return nil, errors.Wrap(err, constant.ErrDBConnectionFailed)
 		}
