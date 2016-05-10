@@ -39,7 +39,7 @@ GET /api/messages/:id
 
 | Framework | Echo |
 | --- | --- |
-| DB | Redis(or MySQL(Q4M)) |
+| DB | MySQL |
 | Validation | JSV |
 | Auth | JWTAuth |
 
