@@ -1,4 +1,4 @@
-package db
+package datasource
 
 import (
 	"github.com/pkg/errors"
