@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "from": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "sector": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "sector"
+      ]
+    },
+    "to": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "sector": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "sector"
+      ]
+    },
+    "created_at": {
+      "type": "integer"
+    },
+    "expiry": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "title",
+    "text",
+    "from",
+    "to",
+    "created_at",
+    "expiry"
+  ]
+}
