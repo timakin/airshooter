@@ -1,11 +1,5 @@
 package model
 
-import (
-	"time"
-)
-
-// from, to = id, type
-// CreatedAt, Expiry = unixtimestamp
 type Notification struct {
 	Title     *string `json: "title"`
 	Text      *string `json: "text"`
@@ -17,15 +11,13 @@ type Notification struct {
 
 type Notifications []*Notification
 
-func newNotification(title string, text string, from Communicator, to Communicator, createdAt int64, expiry int64) *Notification {
-	now := time.Now().UnixNano()
-
+func NewNotification(args map[string]interface{}) *Notification {
 	return &Notification{
-		Title:     &title,
-		Text:      &text,
-		From:      &from,
-		To:        &to,
-		CreatedAt: &now,
-		Expiry:    &now,
+		Title:     args["title"].(*string),
+		Text:      args["text"].(*string),
+		From:      args["from"].(*Communicator),
+		To:        args["to"].(*Communicator),
+		CreatedAt: args["created_at"].(*int64),
+		Expiry:    args["expiry"].(*int64),
 	}
 }

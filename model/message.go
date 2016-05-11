@@ -1,9 +1,5 @@
 package model
 
-import (
-	"time"
-)
-
 type Message struct {
 	Text      *string `json: "text"`
 	From      *Communicator
@@ -14,14 +10,12 @@ type Message struct {
 
 type Messages []*Message
 
-func newMessage(text string, from Communicator, to Communicator, threadId int64, createdAt int64) *Message {
-	now := time.Now().UnixNano()
-
+func NewMessage(args map[string]interface{}) *Message {
 	return &Message{
-		Text:      &text,
-		From:      &from,
-		To:        &to,
-		ThreadId:  &threadId,
-		CreatedAt: &now,
+		Text:      args["text"].(*string),
+		From:      args["from"].(*Communicator),
+		To:        args["to"].(*Communicator),
+		ThreadId:  args["thread_id"].(*int64),
+		CreatedAt: args["created_at"].(*int64),
 	}
 }
