@@ -1,12 +1,12 @@
 package model
 
 type Notification struct {
-	Title     *string `json: "title"`
-	Text      *string `json: "text"`
-	From      *Communicator
-	To        *Communicator
-	CreatedAt *int64 `json: "created_at"`
-	Expiry    *int64 `json: "expiry"`
+	Title     *string       `json: "title"`
+	Text      *string       `json: "text"`
+	From      *Communicator `json: "from"`
+	To        *Communicator `json: "to"`
+	CreatedAt *int64        `json: "created_at"`
+	Expiry    *int64        `json: "expiry"`
 }
 
 type Notifications []*Notification

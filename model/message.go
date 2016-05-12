@@ -1,11 +1,11 @@
 package model
 
 type Message struct {
-	Text      *string `json: "text"`
-	From      *Communicator
-	To        *Communicator
-	ThreadId  *int64
-	CreatedAt *int64
+	Text      *string       `json: "text"`
+	From      *Communicator `json: "from"`
+	To        *Communicator `json: "to"`
+	ThreadId  *int64        `json: "thread_id"`
+	CreatedAt *int64        `json: "created_at"`
 }
 
 type Messages []*Message
