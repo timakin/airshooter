@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "title": "Notification API",
+  "description": "Managing notifications, unread/read histories.",
+  "stability": "prototype",
+  "strictProperties": true,
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "id": {
+      "description": "unique identifier of notifications",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "name": {
+      "description": "unique name of notifications",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "identity": {
+      "anyOf": [
+        {
+          "$ref": "/schemata/notifications#/definitions/id"
+        },
+        {
+          "$ref": "/schemata/notifications#/definitions/name"
+        }
+      ]
+    },
+    "created_at": {
+      "description": "when notifications was created",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    },
+    "updated_at": {
+      "description": "when notifications was updated",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "links": [
+    {
+      "description": "Create a new notifications.",
+      "href": "/notificationss",
+      "method": "POST",
+      "rel": "create",
+      "schema": {
+        "properties": {
+        },
+        "type": [
+          "object"
+        ]
+      },
+      "title": "Create"
+    },
+    {
+      "description": "Delete an existing notifications.",
+      "href": "/notificationss/{(%2Fschemata%2Fnotifications%23%2Fdefinitions%2Fidentity)}",
+      "method": "DELETE",
+      "rel": "destroy",
+      "title": "Delete"
+    },
+    {
+      "description": "Info for existing notifications.",
+      "href": "/notificationss/{(%2Fschemata%2Fnotifications%23%2Fdefinitions%2Fidentity)}",
+      "method": "GET",
+      "rel": "self",
+      "title": "Info"
+    },
+    {
+      "description": "List existing notificationss.",
+      "href": "/notificationss",
+      "method": "GET",
+      "rel": "instances",
+      "title": "List"
+    },
+    {
+      "description": "Update an existing notifications.",
+      "href": "/notificationss/{(%2Fschemata%2Fnotifications%23%2Fdefinitions%2Fidentity)}",
+      "method": "PATCH",
+      "rel": "update",
+      "schema": {
+        "properties": {
+        },
+        "type": [
+          "object"
+        ]
+      },
+      "title": "Update"
+    }
+  ],
+  "properties": {
+    "created_at": {
+      "$ref": "/schemata/notifications#/definitions/created_at"
+    },
+    "id": {
+      "$ref": "/schemata/notifications#/definitions/id"
+    },
+    "name": {
+      "$ref": "/schemata/notifications#/definitions/name"
+    },
+    "updated_at": {
+      "$ref": "/schemata/notifications#/definitions/updated_at"
+    }
+  },
+  "id": "schemata/notifications"
+}
