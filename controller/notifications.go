@@ -4,6 +4,8 @@ import (
 	"github.com/labstack/echo"
 	m "github.com/timakin/airshooter/model"
 	//	s "github.com/timakin/airshooter/service"
+	"fmt"
+	"gopkg.in/go-playground/validator.v8"
 	"net/http"
 )
 
@@ -12,6 +14,13 @@ func EnqueueNotification(c echo.Context) error {
 	if err := c.Bind(notification); err != nil {
 		return err
 	}
+
+	config := &validator.Config{TagName: "validate"}
+	validate := validator.New(config)
+	if err := validate.Struct(notification); err != nil {
+		fmt.Println(err)
+	}
+
 	return c.JSON(http.StatusCreated, notification)
 }
 
