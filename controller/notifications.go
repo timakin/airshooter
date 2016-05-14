@@ -5,7 +5,6 @@ import (
 	m "github.com/timakin/airshooter/model"
 	//	s "github.com/timakin/airshooter/service"
 	"fmt"
-	"gopkg.in/go-playground/validator.v8"
 	"net/http"
 )
 
@@ -15,9 +14,7 @@ func EnqueueNotification(c echo.Context) error {
 		return err
 	}
 
-	config := &validator.Config{TagName: "validate"}
-	validate := validator.New(config)
-	if err := validate.Struct(notification); err != nil {
+	if err := ValidationHandler(notification); err != nil {
 		fmt.Println(err)
 	}
 

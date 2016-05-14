@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/labstack/echo"
+	"gopkg.in/go-playground/validator.v8"
 	"log"
 )
 
@@ -19,6 +20,12 @@ func AuthClient(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-func ValidationHandler(path string) error {
+func ValidationHandler(target interface{}) error {
+	config := &validator.Config{TagName: "validate"}
+	validate := validator.New(config)
+	if err := validate.Struct(target); err != nil {
+		return err
+	}
+
 	return nil
 }
