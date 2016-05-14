@@ -2,20 +2,20 @@ package controller
 
 import (
 	"github.com/labstack/echo"
+	"github.com/timakin/airshooter/constant"
 	m "github.com/timakin/airshooter/model"
 	//	s "github.com/timakin/airshooter/service"
-	"fmt"
 	"net/http"
 )
 
 func EnqueueNotification(c echo.Context) error {
 	notification := new(m.Notification)
 	if err := c.Bind(notification); err != nil {
-		return err
+		return c.JSON(http.StatusInternalServerError, constant.ErrInternalServerError)
 	}
 
 	if err := ValidationHandler(notification); err != nil {
-		fmt.Println(err)
+		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
 	}
 
 	return c.JSON(http.StatusCreated, notification)
