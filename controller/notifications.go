@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/timakin/airshooter/constant"
 	m "github.com/timakin/airshooter/model"
-	//	s "github.com/timakin/airshooter/service"
+	s "github.com/timakin/airshooter/service"
 	"net/http"
 )
 
@@ -16,6 +16,10 @@ func EnqueueNotification(c echo.Context) error {
 
 	if err := ValidationHandler(notification); err != nil {
 		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
+	}
+
+	if err := s.EnqueueNotification(notification); err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
 	}
 
 	return c.JSON(http.StatusCreated, notification)

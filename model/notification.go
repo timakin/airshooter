@@ -1,5 +1,9 @@
 package model
 
+import (
+	db "github.com/timakin/airshooter/datasource"
+)
+
 type Notification struct {
 	Id        *int64        `json:"id"`
 	Title     *string       `json:"title" validate:"required"`
@@ -21,4 +25,8 @@ func NewNotification(args map[string]interface{}) *Notification {
 		CreatedAt: args["created_at"].(*int64),
 		Expiry:    args["expiry"].(*int64),
 	}
+}
+
+func Post(notification *Notification) {
+	if err := db.InsertNotification(notification)
 }

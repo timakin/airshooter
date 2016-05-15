@@ -7,7 +7,7 @@ import (
 	m "github.com/timakin/airshooter/model"
 )
 
-func PostNotification(notification *m.Notification) error {
+func InsertNotification(notification *m.Notification) error {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return err
@@ -19,7 +19,7 @@ func PostNotification(notification *m.Notification) error {
 	return nil
 }
 
-func GetNotification(id *int64) (*m.Notification, error) {
+func SelectNotification(id *int64) (*m.Notification, error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func GetNotification(id *int64) (*m.Notification, error) {
 	return notification, nil
 }
 
-func GetNotifications() ([]*m.Notification, error) {
+func SelectNotifications() ([]*m.Notification, error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
