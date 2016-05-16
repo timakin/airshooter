@@ -16,6 +16,7 @@ func InsertNotification(notification *m.Notification) error {
 	if err != nil {
 		return errors.Wrap(err, constant.ErrDBInsertionFailed)
 	}
+
 	return nil
 }
 

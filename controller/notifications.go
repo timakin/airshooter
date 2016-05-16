@@ -9,7 +9,7 @@ import (
 )
 
 func EnqueueNotification(c echo.Context) error {
-	notification := new(m.Notification)
+	notification := new(NotificationPostRequest)
 	if err := c.Bind(notification); err != nil {
 		return c.JSON(http.StatusInternalServerError, constant.ErrInternalServerError)
 	}
