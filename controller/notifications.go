@@ -18,11 +18,11 @@ func EnqueueNotification(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
 	}
 
-	if err := s.EnqueueNotification(notification); err != nil {
+	if result, err := s.EnqueueNotification(notification); err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
-	return c.JSON(http.StatusCreated, notification)
+	return c.JSON(http.StatusCreated, result)
 }
 
 func PublishNotification(c echo.Context) error {

@@ -27,10 +27,11 @@ func NewNotification(args map[string]interface{}) *Notification {
 	}
 }
 
-func PostNotification(args map[string]interface{}) error {
+func PostNotification(args map[string]interface{}) (result *Notification, err error) {
 	notification := NewNotification(args)
-	if err := db.InsertNotification(notification); err != nil {
-		return err
+	if result, err = db.InsertNotification(notification); err != nil {
+		return nil, err
 	}
-	return nil
+
+	return result, nil
 }

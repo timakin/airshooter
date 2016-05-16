@@ -5,15 +5,15 @@ import (
 	"time"
 )
 
-func EnqueueNotification(req string) error {
+func EnqueueNotification(req string) (result *m.Notification, err error) {
 	req["created_at"] = time.Now().Unix()
 	req["expiry"] = time.Now().Unix() + constant.NotificationExpiryDuration
 
-	if err := m.PostNotification(req); err != nil {
-		return err
+	if result, err = m.PostNotification(req); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return result, nil
 }
 
 func GetNotification(id int64) (*m.Notification, error) {
