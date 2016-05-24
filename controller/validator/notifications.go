@@ -10,3 +10,7 @@ type NotificationPostRequest struct {
 	From  *Communicator `json:"from" validate:"required"`
 	To    *Communicator `json:"to" validate:"required"`
 }
+
+type NotificationGetRequest struct {
+	Id *int64 `json:"id" validate:"required"`
+}

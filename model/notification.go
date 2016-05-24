@@ -35,3 +35,19 @@ func PostNotification(args map[string]interface{}) (result *Notification, err er
 
 	return result, nil
 }
+
+func GetNotification(id *int64) (result *Notification, err error) {
+	if result, err = db.SelectNotification(&id); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func GetNotifications() (result *Notification, err error) {
+	if result, err = db.SelectNotifications(); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}

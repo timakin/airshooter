@@ -16,11 +16,17 @@ func EnqueueNotification(req string) (result *m.Notification, err error) {
 	return result, nil
 }
 
-func GetNotification(id int64) (*m.Notification, error) {
-	return nil, nil
+func GetNotification(id *int64) (result *m.Notification, err error) {
+	if result, err = m.GetNotification(id); err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
-func GetNotifications(ids []int64) ([]*m.Notification, error) {
-	// find notifications by ids
-	return nil, nil
+func GetNotifications() (results []*m.Notification, err error) {
+	if results, err = m.GetNotifications(); err != nil {
+		return nil, err
+	}
+
+	return results, nil
 }

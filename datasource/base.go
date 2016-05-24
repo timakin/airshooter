@@ -17,8 +17,7 @@ var sharedInstance *gorp.DbMap
 // Singleton
 func GetDBInstance() (*gorp.DbMap, error) {
 	if sharedInstance == nil {
-		connection, err := sql.Open("mysql", config.DBHost+":"+config.DBIP+"*"+config.DBPath)
-		if err != nil {
+		if connection, err := sql.Open("mysql", config.DBHost+":"+config.DBIP+"*"+config.DBPath); err != nil {
 			return nil, errors.Wrap(err, constant.ErrDBConnectionFailed)
 		}
 		sharedInstance = &gorp.DbMap{Db: connection, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
