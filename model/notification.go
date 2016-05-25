@@ -1,9 +1,5 @@
 package model
 
-import (
-	db "github.com/timakin/airshooter/datasource"
-)
-
 type Notification struct {
 	Id        *int64        `json:"id" db:"id, primarykey, autoincrement"`
 	Title     *string       `json:"title" validate:"required" db:"title"`
@@ -25,29 +21,4 @@ func NewNotification(args map[string]interface{}) *Notification {
 		CreatedAt: args["created_at"].(*int64),
 		Expiry:    args["expiry"].(*int64),
 	}
-}
-
-func PostNotification(args map[string]interface{}) (result *Notification, err error) {
-	notification := NewNotification(args)
-	if result, err = db.InsertNotification(notification); err != nil {
-		return nil, err
-	}
-
-	return result, nil
-}
-
-func GetNotification(id *int64) (result *Notification, err error) {
-	if result, err = db.SelectNotification(&id); err != nil {
-		return nil, err
-	}
-
-	return result, nil
-}
-
-func GetNotifications() (result *Notification, err error) {
-	if result, err = db.SelectNotifications(); err != nil {
-		return nil, err
-	}
-
-	return result, nil
 }
