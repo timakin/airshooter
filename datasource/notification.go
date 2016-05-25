@@ -25,7 +25,8 @@ func InsertNotification(notification *m.Notification) (result *m.Notification, e
 }
 
 func SelectNotification(id *int64) (result *m.Notification, err error) {
-	if dbConnection, err := GetDBInstance(); err != nil {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
 		return nil, err
 	}
 
@@ -36,13 +37,14 @@ func SelectNotification(id *int64) (result *m.Notification, err error) {
 	return result, nil
 }
 
-func SelectNotifications() ([]*m.Notification, error) {
-	if dbConnection, err := GetDBInstance(); err != nil {
+func SelectNotifications() (notifications []*m.Notification, err error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
 		return nil, err
 	}
 
-	var notifications []*m.Notification
-	if _, err := dbConnection.Select(notifications, "select * from notifications order by created_at"); err != nil {
+	_, err = dbConnection.Select(notifications, "select * from notifications order by created_at")
+	if err != nil {
 		return nil, errors.Wrap(err, constant.ErrDBSelectionFailed)
 	}
 	return notifications, nil
