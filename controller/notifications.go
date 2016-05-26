@@ -9,7 +9,7 @@ import (
 )
 
 func EnqueueNotification(c echo.Context) error {
-	notification := new(NotificationPostRequest)
+	var notification *m.Notification
 	if err := c.Bind(notification); err != nil {
 		return c.JSON(http.StatusInternalServerError, constant.ErrInternalServerError)
 	}
@@ -18,7 +18,8 @@ func EnqueueNotification(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
 	}
 
-	if result, err := s.EnqueueNotification(notification); err != nil {
+	result, err := s.EnqueueNotification(notification)
+	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
@@ -30,7 +31,7 @@ func PublishNotification(c echo.Context) error {
 }
 
 func GetNotification(c echo.Context) error {
-	notification := new(NotificationGetRequest)
+	var notification *m.Notification
 	if err := c.Bind(notification); err != nil {
 		return c.JSON(http.StatusInternalServerError, constant.ErrInternalServerError)
 	}
@@ -39,7 +40,8 @@ func GetNotification(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
 	}
 
-	if result, err := s.GetNotification(notification.Id); err != nil {
+	result, err := s.GetNotification(notification.Id)
+	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
@@ -47,7 +49,8 @@ func GetNotification(c echo.Context) error {
 }
 
 func GetNotifications(c echo.Context) error {
-	if result, err := s.GetNotifications(); err != nil {
+	result, err := s.GetNotifications()
+	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 

@@ -1,18 +1,19 @@
 package service
 
 import (
+	constant "github.com/timakin/airshooter/constant"
 	db "github.com/timakin/airshooter/datasource"
 	m "github.com/timakin/airshooter/model"
 	"time"
 )
 
-func EnqueueNotification(req string) (result *m.Notification, err error) {
-	req["created_at"] = time.Now().Unix()
-	req["expiry"] = time.Now().Unix() + constant.NotificationExpiryDuration
+func EnqueueNotification(notification *m.Notification) (result *m.Notification, err error) {
+	createdAt := time.Now().Unix()
+	expiry := time.Now().Unix() + constant.NotificationExpiryDuration
 
-	value := m.NewNotification(req)
-
-	if result, err = db.InsertNotification(value); err != nil {
+	notification.CreatedAt = &createdAt
+	notification.Expiry = &expiry
+	if result, err = db.InsertNotification(notification); err != nil {
 		return nil, err
 	}
 
