@@ -5,7 +5,6 @@ import (
 
 	//	"github.com/timakin/airshooter/constant"
 	m "github.com/timakin/airshooter/model"
-	"fmt"
 )
 
 func InsertNotification(notification *m.Notification) (result *m.Notification, err error) {
@@ -25,10 +24,12 @@ func SelectNotification(id *int64) (result *m.Notification, err error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("datasource")
-	dbConnection.First(&result, id)
 
-	return result, nil
+	var selected m.Notification
+
+	dbConnection.First(&selected, id)
+
+	return &selected, nil
 }
 //
 // func SelectNotifications() (notifications []*m.Notification, err error) {
