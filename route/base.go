@@ -15,6 +15,6 @@ func Init() *echo.Echo {
 
 	api := e.Group("/api")
 	AddNotificationAPI(api)
-	AddMessageAPI(api)
+	// AddMessageAPI(api)
 	return e
 }

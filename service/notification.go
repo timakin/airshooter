@@ -9,10 +9,11 @@ import (
 
 func EnqueueNotification(notification *m.Notification) (result *m.Notification, err error) {
 	createdAt := time.Now().Unix()
-	expiry := time.Now().Unix() + constant.NotificationExpiryDuration
-
+	updatedAt := time.Now().Unix()
+	expiresAt := time.Now().Unix() + constant.NotificationExpiryDuration
+	notification.ExpiresAt = &expiresAt
 	notification.CreatedAt = &createdAt
-	notification.Expiry = &expiry
+	notification.UpdatedAt = &updatedAt
 	if result, err = db.InsertNotification(notification); err != nil {
 		return nil, err
 	}
@@ -20,17 +21,17 @@ func EnqueueNotification(notification *m.Notification) (result *m.Notification, 
 	return result, nil
 }
 
-func GetNotification(id *int64) (result *m.Notification, err error) {
-	if result, err = db.SelectNotification(id); err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-func GetNotifications() (results []*m.Notification, err error) {
-	if results, err = db.SelectNotifications(); err != nil {
-		return nil, err
-	}
-
-	return results, nil
-}
+// func GetNotification(id *int64) (result *m.Notification, err error) {
+// 	if result, err = db.SelectNotification(id); err != nil {
+// 		return nil, err
+// 	}
+// 	return result, nil
+// }
+//
+// func GetNotifications() (results []*m.Notification, err error) {
+// 	if results, err = db.SelectNotifications(); err != nil {
+// 		return nil, err
+// 	}
+//
+// 	return results, nil
+// }

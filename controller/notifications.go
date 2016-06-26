@@ -30,37 +30,37 @@ func EnqueueNotification(c echo.Context) error {
 	return c.JSON(http.StatusCreated, result)
 }
 
-func PublishNotification(c echo.Context) error {
-	return c.String(http.StatusOK, "PUT publish")
-}
-
-func GetNotification(c echo.Context) error {
-	var notification *m.Notification
-	if err := c.Bind(notification); err != nil {
-		return c.JSON(http.StatusInternalServerError, constant.ErrInternalServerError)
-	}
-
-	if err := ValidationHandler(notification); err != nil {
-		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
-	}
-
-	result, err := s.GetNotification(notification.Id)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
-	}
-
-	return c.JSON(http.StatusCreated, result)
-}
-
-func GetNotifications(c echo.Context) error {
-	result, err := s.GetNotifications()
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
-	}
-
-	return c.JSON(http.StatusCreated, result)
-}
-
-func MarkReadNotifications(c echo.Context) error {
-	return c.String(http.StatusOK, "PUT subscribe")
-}
+// func PublishNotification(c echo.Context) error {
+// 	return c.String(http.StatusOK, "PUT publish")
+// }
+//
+// func GetNotification(c echo.Context) error {
+// 	var notification *m.Notification
+// 	if err := c.Bind(notification); err != nil {
+// 		return c.JSON(http.StatusInternalServerError, constant.ErrInternalServerError)
+// 	}
+//
+// 	if err := ValidationHandler(notification); err != nil {
+// 		return c.JSON(http.StatusBadRequest, constant.ErrRequestInvalid)
+// 	}
+//
+// 	result, err := s.GetNotification(notification.Id)
+// 	if err != nil {
+// 		return c.JSON(http.StatusInternalServerError, err)
+// 	}
+//
+// 	return c.JSON(http.StatusCreated, result)
+// }
+//
+// func GetNotifications(c echo.Context) error {
+// 	result, err := s.GetNotifications()
+// 	if err != nil {
+// 		return c.JSON(http.StatusInternalServerError, err)
+// 	}
+//
+// 	return c.JSON(http.StatusCreated, result)
+// }
+//
+// func MarkReadNotifications(c echo.Context) error {
+// 	return c.String(http.StatusOK, "PUT subscribe")
+// }
