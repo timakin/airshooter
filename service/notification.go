@@ -21,12 +21,12 @@ func EnqueueNotification(notification *m.Notification) (result *m.Notification, 
 	return result, nil
 }
 
-// func GetNotification(id *int64) (result *m.Notification, err error) {
-// 	if result, err = db.SelectNotification(id); err != nil {
-// 		return nil, err
-// 	}
-// 	return result, nil
-// }
+func GetNotification(id *int64) (result *m.Notification, err error) {
+	if result, err = db.SelectNotification(id); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
 //
 // func GetNotifications() (results []*m.Notification, err error) {
 // 	if results, err = db.SelectNotifications(); err != nil {
