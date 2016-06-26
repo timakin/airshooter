@@ -10,7 +10,7 @@ func AddNotificationAPI(e *echo.Group) (combined *echo.Group) {
 	combined.POST("/enqueue", controller.EnqueueNotification)
 	combined.GET("/subscriptions/:id", controller.GetNotification)
 	// combined.PUT("/publish", controller.PublishNotification)
-	// combined.GET("/subscriptions", controller.GetNotifications)
+	combined.GET("/subscriptions", controller.GetNotifications)
 	// combined.PUT("/subscriptions", controller.MarkReadNotifications)
 	return combined
 }

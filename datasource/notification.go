@@ -7,19 +7,20 @@ import (
 	m "github.com/timakin/airshooter/model"
 )
 
-func InsertNotification(notification *m.Notification) (result *m.Notification, err error) {
+func InsertNotification(notification *m.Notification) (*m.Notification, error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
 	}
 
 	dbConnection.Create(&notification)
-	dbConnection.First(&result)
+	var saved m.Notification
+	dbConnection.First(&saved)
 
-	return result, nil
+	return &saved, nil
 }
 
-func SelectNotification(id *int64) (result *m.Notification, err error) {
+func SelectNotification(id *int64) (*m.Notification, error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
@@ -31,11 +32,15 @@ func SelectNotification(id *int64) (result *m.Notification, err error) {
 
 	return &selected, nil
 }
-//
-// func SelectNotifications() (notifications []*m.Notification, err error) {
-// 	dbConnection, err := GetDBInstance()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return nil, nil
-// }
+
+func SelectNotifications() (notifications *[]m.Notification, err error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var selected []m.Notification
+	dbConnection.Limit(10).Find(&selected)
+
+	return &selected, nil
+}

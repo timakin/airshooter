@@ -27,11 +27,11 @@ func GetNotification(id *int64) (result *m.Notification, err error) {
 	}
 	return result, nil
 }
-//
-// func GetNotifications() (results []*m.Notification, err error) {
-// 	if results, err = db.SelectNotifications(); err != nil {
-// 		return nil, err
-// 	}
-//
-// 	return results, nil
-// }
+
+func GetNotifications() (results *[]m.Notification, err error) {
+	if results, err = db.SelectNotifications(); err != nil {
+		return nil, err
+	}
+
+	return results, nil
+}

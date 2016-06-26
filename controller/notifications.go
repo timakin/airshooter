@@ -46,16 +46,16 @@ func GetNotification(c echo.Context) error {
 // }
 //
 
-//
-// func GetNotifications(c echo.Context) error {
-// 	result, err := s.GetNotifications()
-// 	if err != nil {
-// 		return c.JSON(http.StatusInternalServerError, err)
-// 	}
-//
-// 	return c.JSON(http.StatusCreated, result)
-// }
-//
+
+func GetNotifications(c echo.Context) error {
+	result, err := s.GetNotifications()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
+
 // func MarkReadNotifications(c echo.Context) error {
 // 	return c.String(http.StatusOK, "PUT subscribe")
 // }
