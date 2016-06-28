@@ -11,13 +11,26 @@ func EnqueueNotification(notification *m.Notification) (result *m.Notification, 
 	createdAt := time.Now().Unix()
 	updatedAt := time.Now().Unix()
 	expiresAt := time.Now().Unix() + constant.NotificationExpiryDuration
-	sender := m.NotificationSender{SenderId: notification.Sender.SenderId, Sector: notification.Sender.Sector}
-	recipient := m.NotificationRecipient{RecipientId: notification.Recipient.RecipientId, Sector: notification.Recipient.Sector}
+
+	sender := m.NotificationSender{
+		SenderId:  notification.NotificationSender.SenderId,
+		Sector:    notification.NotificationSender.Sector,
+		CreatedAt: &createdAt,
+		UpdatedAt: &updatedAt,
+	}
+	recipient := m.NotificationRecipient{
+		RecipientId: notification.NotificationRecipient.RecipientId,
+		Sector:      notification.NotificationRecipient.Sector,
+		CreatedAt:   &createdAt,
+		UpdatedAt:   &updatedAt,
+	}
+
 	notification.ExpiresAt = &expiresAt
 	notification.CreatedAt = &createdAt
 	notification.UpdatedAt = &updatedAt
-	notification.Sender = sender
-	notification.Recipient = recipient
+	notification.NotificationSender = sender
+	notification.NotificationRecipient = recipient
+
 	if result, err = db.InsertNotification(notification); err != nil {
 		return nil, err
 	}

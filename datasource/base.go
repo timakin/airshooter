@@ -19,6 +19,7 @@ func GetDBInstance() (*gorm.DB, error) {
 		if err != nil {
 			return nil, errors.Wrap(err, constant.ErrDBConnectionFailed)
 		}
+		db.LogMode(true)
 		sharedInstance = db
 	}
 	return sharedInstance, nil
