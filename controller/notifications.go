@@ -46,7 +46,6 @@ func GetNotification(c echo.Context) error {
 // }
 //
 
-
 func GetNotifications(c echo.Context) error {
 	result, err := s.GetNotifications()
 	if err != nil {

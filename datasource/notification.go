@@ -28,7 +28,7 @@ func SelectNotification(id *int64) (*m.Notification, error) {
 
 	var selected m.Notification
 
-	dbConnection.First(&selected, id)
+	dbConnection.Find(&selected, id)
 
 	return &selected, nil
 }
@@ -40,7 +40,8 @@ func SelectNotifications() (notifications *[]m.Notification, err error) {
 	}
 
 	var selected []m.Notification
-	dbConnection.Limit(10).Find(&selected)
+	var sender m.NotificationSender
+	dbConnection.Model(&selected).Related(&sender)
 
 	return &selected, nil
 }
