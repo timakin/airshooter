@@ -15,7 +15,7 @@ func InsertNotification(notification *m.Notification) (*m.Notification, error) {
 
 	dbConnection.Create(&notification)
 	var saved m.Notification
-	dbConnection.First(&saved)
+	dbConnection.Order("id desc").Limit(1).Find(&saved)
 
 	return &saved, nil
 }
@@ -27,8 +27,8 @@ func SelectNotification(id *int64) (*m.Notification, error) {
 	}
 
 	var selected m.Notification
-
-	dbConnection.Find(&selected, id)
+	var sender m.NotificationSender
+	dbConnection.Find(&selected, id).Related(&sender)
 
 	return &selected, nil
 }
@@ -41,7 +41,7 @@ func SelectNotifications() (notifications *[]m.Notification, err error) {
 
 	var selected []m.Notification
 	var sender m.NotificationSender
-	dbConnection.Model(&selected).Related(&sender)
+	dbConnection.Model(&selected).Related(&sender, "Sender")
 
 	return &selected, nil
 }
