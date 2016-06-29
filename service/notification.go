@@ -13,16 +13,16 @@ func EnqueueNotification(notification *m.Notification) (result *m.Notification, 
 	expiresAt := time.Now().Unix() + constant.NotificationExpiryDuration
 
 	sender := m.NotificationSender{
-		SenderId:  notification.NotificationSender.SenderId,
-		Sector:    notification.NotificationSender.Sector,
-		CreatedAt: &createdAt,
-		UpdatedAt: &updatedAt,
+		SenderId:   notification.NotificationSender.SenderId,
+		SenderType: notification.NotificationSender.SenderType,
+		CreatedAt:  &createdAt,
+		UpdatedAt:  &updatedAt,
 	}
 	recipient := m.NotificationRecipient{
-		RecipientId: notification.NotificationRecipient.RecipientId,
-		Sector:      notification.NotificationRecipient.Sector,
-		CreatedAt:   &createdAt,
-		UpdatedAt:   &updatedAt,
+		RecipientId:   notification.NotificationRecipient.RecipientId,
+		RecipientType: notification.NotificationRecipient.RecipientType,
+		CreatedAt:     &createdAt,
+		UpdatedAt:     &updatedAt,
 	}
 
 	notification.ExpiresAt = &expiresAt
