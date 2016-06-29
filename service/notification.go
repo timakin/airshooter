@@ -52,3 +52,11 @@ func GetNotifications() (results *[]m.Notification, err error) {
 
 	return results, nil
 }
+
+func PublishNotifications() (err error) {
+	if updated, err = db.PublishNotifications(); err != nil {
+		return nil, err
+	}
+
+	return nil
+}

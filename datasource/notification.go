@@ -45,3 +45,15 @@ func SelectNotifications() (notifications *[]m.Notification, err error) {
 
 	return &selected, nil
 }
+
+func PublishNotifications() (err error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
+		return err
+	}
+
+	var updated []m.Notification
+	dbConnection.Update(&updated)
+
+	return &updated, err
+}

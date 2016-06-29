@@ -43,10 +43,9 @@ func GetNotification(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-// func PublishNotification(c echo.Context) error {
-// 	return c.String(http.StatusOK, "PUT publish")
-// }
-//
+func PublishNotifications(c echo.Context) error {
+	return c.String(http.StatusOK, "PUT publish")
+}
 
 func GetNotifications(c echo.Context) error {
 	result, err := s.GetNotifications()
