@@ -52,8 +52,7 @@ func PublishNotifications() (err error) {
 		return err
 	}
 
-	var updated []m.Notification
-	dbConnection.Update(&updated)
+	dbConnection.Table("notifications").Where("status = waiting OR status = failed").Update("status", "published")
 
-	return &updated, err
+	return nil
 }
