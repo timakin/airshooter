@@ -38,7 +38,7 @@ func GetNotification(c echo.Context) error {
 }
 
 func GetAllNotifications(c echo.Context) error {
-	userId, _ := strconv.ParseInt(c.QueryParam("userId"), 10, 64)
+	userId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
 	params := map[string]interface{}{"recipientId": &userId}
 	result, err := s.GetNotifications(&params)
 	if err != nil {
@@ -49,7 +49,7 @@ func GetAllNotifications(c echo.Context) error {
 }
 
 func GetUnreadNotifications(c echo.Context) error {
-	userId, _ := strconv.ParseInt(c.QueryParam("userId"), 10, 64)
+	userId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
 	params := map[string]interface{}{"recipientId": &userId, "status": "unread"}
 	result, err := s.GetNotifications(&params)
 	if err != nil {
@@ -60,7 +60,7 @@ func GetUnreadNotifications(c echo.Context) error {
 }
 
 func MarkAllNotificationsAsRead(c echo.Context) error {
-	userId, _ := strconv.ParseInt(c.QueryParam("userId"), 10, 64)
+	userId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
 	err := s.MarkNotificationsAsRead(&userId)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
