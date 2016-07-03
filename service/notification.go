@@ -11,6 +11,7 @@ func EnqueueNotification(notification *m.Notification) (result *m.Notification, 
 	createdAt := time.Now().Unix()
 	updatedAt := time.Now().Unix()
 	expiresAt := time.Now().Unix() + constant.NotificationExpiryDuration
+	status := "unread"
 
 	sender := m.NotificationSender{
 		SenderId:   notification.NotificationSender.SenderId,
@@ -28,6 +29,7 @@ func EnqueueNotification(notification *m.Notification) (result *m.Notification, 
 	notification.ExpiresAt = &expiresAt
 	notification.CreatedAt = &createdAt
 	notification.UpdatedAt = &updatedAt
+	notification.Status = &status
 	notification.NotificationSender = sender
 	notification.NotificationRecipient = recipient
 
@@ -45,16 +47,8 @@ func GetNotification(id *int64) (result *m.Notification, err error) {
 	return result, nil
 }
 
-func GetAllNotifications(userId *int64) (results *[]m.Notification, err error) {
-	if results, err = db.SelectNotifications(); err != nil {
-		return nil, err
-	}
-
-	return results, nil
-}
-
-func GetUnreadNotifications(userId *int64) (results *[]m.Notification, err error) {
-	if results, err = db.SelectNotifications(); err != nil {
+func GetNotifications(params *map[string]interface{}) (results *[]m.Notification, err error) {
+	if results, err = db.SelectNotifications(params); err != nil {
 		return nil, err
 	}
 
@@ -62,8 +56,8 @@ func GetUnreadNotifications(userId *int64) (results *[]m.Notification, err error
 }
 
 func MarkNotificationsAsRead(userId *int64) (err error) {
-	if updated, err = db.PublishNotifications(); err != nil {
-		return nil, err
+	if err = db.MarkNotifications(); err != nil {
+		return err
 	}
 
 	return nil

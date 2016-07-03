@@ -24,7 +24,6 @@ func EnqueueNotification(c echo.Context) error {
 
 	result, err := s.EnqueueNotification(notification)
 	if err != nil {
-		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
@@ -43,7 +42,8 @@ func GetNotification(c echo.Context) error {
 
 func GetAllNotifications(c echo.Context) error {
 	userId, _ := strconv.ParseInt(c.QueryParam("userId"), 10, 64)
-	result, err := s.GetNotifications(&userId)
+	params := map[string]interface{}{"recipientId": &userId}
+	result, err := s.GetNotifications(&params)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
@@ -53,7 +53,8 @@ func GetAllNotifications(c echo.Context) error {
 
 func GetUnreadNotifications(c echo.Context) error {
 	userId, _ := strconv.ParseInt(c.QueryParam("userId"), 10, 64)
-	result, err := s.GetUnreadNotifications(&userId)
+	params := map[string]interface{}{"recipientId": &userId, "status": "unread"}
+	result, err := s.GetNotifications(&params)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}

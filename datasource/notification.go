@@ -34,25 +34,25 @@ func SelectNotification(id *int64) (*m.Notification, error) {
 	return &selected, nil
 }
 
-func SelectNotifications() (notifications *[]m.Notification, err error) {
+func SelectNotifications(params *map[string]interface{}) (notifications *[]m.Notification, err error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
 	}
 
 	var selected []m.Notification
-	dbConnection.Preload("NotificationSender").Preload("NotificationRecipient").Find(&selected)
+	dbConnection.Preload("NotificationSender").Preload("NotificationRecipient").Where(&params).Find(&selected)
 
 	return &selected, nil
 }
 
-func PublishNotifications() (err error) {
+func MarkNotifications() (err error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return err
 	}
 
-	dbConnection.Table("notifications").Where("status = waiting OR status = failed").Update("status", "published")
+	dbConnection.Table("notifications").Where("status = unread").Update("status", "read")
 
 	return nil
 }
