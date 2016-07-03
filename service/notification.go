@@ -45,7 +45,7 @@ func GetNotification(id *int64) (result *m.Notification, err error) {
 	return result, nil
 }
 
-func GetNotifications() (results *[]m.Notification, err error) {
+func GetAllNotifications(userId *int64) (results *[]m.Notification, err error) {
 	if results, err = db.SelectNotifications(); err != nil {
 		return nil, err
 	}
@@ -53,7 +53,15 @@ func GetNotifications() (results *[]m.Notification, err error) {
 	return results, nil
 }
 
-func PublishNotifications() (err error) {
+func GetUnreadNotifications(userId *int64) (results *[]m.Notification, err error) {
+	if results, err = db.SelectNotifications(); err != nil {
+		return nil, err
+	}
+
+	return results, nil
+}
+
+func MarkNotificationsAsRead(userId *int64) (err error) {
 	if updated, err = db.PublishNotifications(); err != nil {
 		return nil, err
 	}
