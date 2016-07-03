@@ -61,10 +61,10 @@ func GetUnreadNotifications(c echo.Context) error {
 
 func MarkAllNotificationsAsRead(c echo.Context) error {
 	userId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
-	err := s.MarkNotificationsAsRead(&userId)
+	results, err := s.MarkNotificationsAsRead(&userId)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
-	return c.JSON(http.StatusOK, nil)
+	return c.JSON(http.StatusOK, results)
 }

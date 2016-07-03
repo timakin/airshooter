@@ -55,10 +55,10 @@ func GetNotifications(params *map[string]interface{}) (results *[]m.Notification
 	return results, nil
 }
 
-func MarkNotificationsAsRead(userId *int64) (err error) {
-	if err = db.MarkNotifications(userId); err != nil {
-		return err
+func MarkNotificationsAsRead(userId *int64) (results *[]m.Notification, err error) {
+	if results, err = db.MarkNotifications(userId); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return results, nil
 }

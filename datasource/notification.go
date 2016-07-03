@@ -46,14 +46,14 @@ func SelectNotifications(params *map[string]interface{}) (notifications *[]m.Not
 	return &selected, nil
 }
 
-func MarkNotifications(userId *int64) (err error) {
+func MarkNotifications(userId *int64) (results *[]m.Notification, err error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	condition := map[string]interface{}{"userId": &userId, "status": "unread"}
-	dbConnection.Table("notifications").Where(&condition).Update("status", "read")
+	dbConnection.Model(&results).Where(&condition).Update("status", "read")
 
-	return nil
+	return results, nil
 }
