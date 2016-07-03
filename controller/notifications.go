@@ -43,11 +43,11 @@ func GetNotification(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func PublishNotifications(c echo.Context) error {
+func MarkAllNotificationsAsRead(c echo.Context) error {
 	return c.String(http.StatusOK, "PUT publish")
 }
 
-func GetNotifications(c echo.Context) error {
+func GetAllNotifications(c echo.Context) error {
 	result, err := s.GetNotifications()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
@@ -56,6 +56,11 @@ func GetNotifications(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-// func MarkReadNotifications(c echo.Context) error {
-// 	return c.String(http.StatusOK, "PUT subscribe")
-// }
+func GetUnreadNotifications(c echo.Context) error {
+	result, err := s.GetNotifications()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
