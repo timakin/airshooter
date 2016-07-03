@@ -11,6 +11,6 @@ func AddNotificationAPI(e *echo.Group) (combined *echo.Group) {
 	combined.GET("/:id", controller.GetNotification)
 	combined.PUT("/read", controller.MarkAllNotificationsAsRead)
 	combined.GET("/all", controller.GetAllNotifications)
-	combined.PUT("/unread", controller.GetUnreadNotifications)
+	combined.GET("/unread", controller.GetUnreadNotifications)
 	return combined
 }
