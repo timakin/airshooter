@@ -1,19 +1,10 @@
 package model
 
 type Message struct {
-	Text *string `json:"text" validate:"required"`
-	// From      *Communicator `json:"from" validate:"required"`
-	// To        *Communicator `json:"to" validate:"required"`
-	ThreadId *int64 `json:"thread_id" validate:"required,len=10"`
+	Text             *string          `json:"text" validate:"required"`
+	ThreadId         *int64           `json:"thread_id" validate:"required"`
+	MessageSender    MessageSender    `json:"sender"`
+	MessageRecipient MessageRecipient `json:"recipient"`
 }
 
 type Messages []*Message
-
-func NewMessage(args map[string]interface{}) *Message {
-	return &Message{
-		Text: args["text"].(*string),
-		//From:      args["from"].(*Communicator),
-		//To:        args["to"].(*Communicator),
-		ThreadId: args["thread_id"].(*int64),
-	}
-}
