@@ -56,7 +56,7 @@ func GetNotifications(params *map[string]interface{}) (results *[]m.Notification
 }
 
 func MarkNotificationsAsRead(userId *int64) (err error) {
-	if err = db.MarkNotifications(); err != nil {
+	if err = db.MarkNotifications(userId); err != nil {
 		return err
 	}
 

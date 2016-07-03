@@ -63,5 +63,11 @@ func GetUnreadNotifications(c echo.Context) error {
 }
 
 func MarkAllNotificationsAsRead(c echo.Context) error {
-	return c.String(http.StatusOK, "PUT publish")
+	userId, _ := strconv.ParseInt(c.QueryParam("userId"), 10, 64)
+	err := s.MarkNotificationsAsRead(&userId)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, nil)
 }
