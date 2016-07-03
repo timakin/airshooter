@@ -1,33 +1,31 @@
 package datasource
 
-// import (
-	//	"github.com/pkg/errors"
+import (
+	"github.com/k0kubun/pp"
+	m "github.com/timakin/airshooter/model"
+)
 
-	//	"github.com/timakin/airshooter/constant"
-	// m "github.com/timakin/airshooter/model"
-// )
+func InsertMessage(message *m.Message) (*m.Message, error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
+		return nil, err
+	}
 
-//func PostMessage(message *m.Message) error {
-	//	dbConnection, err := GetDBInstance()
-	//	if err != nil {
-	//		return err
-	//	}
-	//	return nil
-// }
+	dbConnection.Create(&message)
+	var saved m.Message
+	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Last(&saved)
 
-// func GetMessage(id *int64) (*m.Message, error) {
-// 	//	dbConnection, err := GetDBInstance()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	return nil, nil
-// }
-//
-// func GetMessages() ([]*m.Message, error) {
-// 	dbConnection, err := GetDBInstance()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return nil, nil
-// }
+	return &saved, nil
+}
+
+func SelectMessages(threadId *int64) (messages *[]m.Message, err error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var selected []m.Message
+	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Where("thread_id = ?", &threadId).Find(&selected)
+
+	return &selected, nil
+}
