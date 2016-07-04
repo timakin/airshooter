@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func EnqueueMessage(message *m.Message) (result *m.Message, err error) {
+func InsertMessage(message *m.Message) (result *m.Message, err error) {
 	createdAt := time.Now().Unix()
 	updatedAt := time.Now().Unix()
 
