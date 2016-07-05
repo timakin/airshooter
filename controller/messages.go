@@ -28,8 +28,9 @@ func SendMessage(c echo.Context) error {
 }
 
 func ReceiveMessages(c echo.Context) error {
-	userId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
-	params := map[string]interface{}{"recipientId": &userId}
+	senderId, _ := strconv.ParseInt(c.QueryParam("senderId"), 10, 64)
+	recipientId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
+	params := map[string]interface{}{"senderId": &senderId, "recipientId": &recipientId}
 	result, err := s.GetMessages(&params)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
@@ -39,8 +40,8 @@ func ReceiveMessages(c echo.Context) error {
 }
 
 func ListThreads(c echo.Context) error {
-	userId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
-	params := map[string]interface{}{"recipientId": &userId}
+	recipientId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
+	params := map[string]interface{}{"recipientId": &recipientId}
 	result, err := s.GetMessages(&params)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)

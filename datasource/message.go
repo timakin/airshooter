@@ -1,7 +1,6 @@
 package datasource
 
 import (
-	"github.com/k0kubun/pp"
 	m "github.com/timakin/airshooter/model"
 )
 

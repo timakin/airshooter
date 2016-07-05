@@ -36,8 +36,8 @@ func InsertMessage(message *m.Message) (result *m.Message, err error) {
 	return result, nil
 }
 
-func GetMessages(threadId *int64) (results *[]m.Message, err error) {
-	if results, err = db.SelectMessages(threadId); err != nil {
+func GetMessages(params *map[string]interface{}) (results *[]m.Message, err error) {
+	if results, err = db.SelectMessages(params); err != nil {
 		return nil, err
 	}
 
