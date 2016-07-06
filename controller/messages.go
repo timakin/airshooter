@@ -39,7 +39,7 @@ func ReceiveMessages(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func ListThreads(c echo.Context) error {
+func GetThreads(c echo.Context) error {
 	recipientId, _ := strconv.ParseInt(c.QueryParam("recipientId"), 10, 64)
 	params := map[string]interface{}{"recipientId": &recipientId}
 	result, err := s.GetMessages(&params)

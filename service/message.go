@@ -43,3 +43,10 @@ func GetMessages(params *map[string]interface{}) (results *[]m.Message, err erro
 
 	return results, nil
 }
+
+func GetThreads(recipientId *int64) (results *[]m.Message, err error) {
+	if results, err = db.SelectThreads(recipientId); err != nil {
+		return nil, err
+	}
+	return results, nil
+}

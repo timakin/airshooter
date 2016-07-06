@@ -17,14 +17,27 @@ func InsertMessage(message *m.Message) (*m.Message, error) {
 	return &saved, nil
 }
 
-func SelectMessages(threadId *int64) (messages *[]m.Message, err error) {
+func SelectMessages(params *map[string]interface{}) (messages *[]m.Message, err error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err
 	}
 
 	var selected []m.Message
-	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Where("thread_id = ?", &threadId).Find(&selected)
+	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Where(&params).Find(&selected)
+
+	return &selected, nil
+}
+
+// Select by recipientId and group by senderId
+func SelectThreads(recipientId *int64) (messages *[]m.Message, err error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	var selected []m.Message
+	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Where("message_recipients.recipient_id = ?", &recipientId).Find(&selected)
 
 	return &selected, nil
 }
