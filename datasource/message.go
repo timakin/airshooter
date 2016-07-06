@@ -37,7 +37,7 @@ func SelectThreads(recipientId *int64) (messages *[]m.Message, err error) {
 	}
 
 	var selected []m.Message
-	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Where("message_recipients.recipient_id = ?", &recipientId).Find(&selected)
+	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Where("message_recipients.recipient_id = ?", &recipientId).Group("message_senders.sender_id").Find(&selected)
 
 	return &selected, nil
 }
