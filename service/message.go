@@ -1,7 +1,6 @@
 package service
 
 import (
-	constant "github.com/timakin/airshooter/constant"
 	db "github.com/timakin/airshooter/datasource"
 	m "github.com/timakin/airshooter/model"
 	"time"
