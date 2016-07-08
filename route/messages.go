@@ -8,7 +8,7 @@ import (
 func AddMessageAPI(e *echo.Group) (combined *echo.Group) {
 	combined = e.Group("/messages")
 	combined.POST("/send", controller.SendMessage)
-	combined.GET("/receive", controller.ReceiveMessages)
-	combined.GET("/receive", controller.GetThreads)
+	combined.GET("/received", controller.ReceiveMessages)
+	combined.GET("/threads", controller.GetThreads)
 	return combined
 }
