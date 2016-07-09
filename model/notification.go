@@ -1,9 +1,5 @@
 package model
 
-// import (
-// 	"github.com/jinzhu/gorm"
-// )
-
 type Notification struct {
 	Id                    *int64                `json:"id" gorm:"primary_key AUTO_INCREMENT"`
 	Title                 *string               `json:"title"  validate:"required"`
