@@ -1,10 +1,6 @@
 package datasource
 
 import (
-	//	"github.com/pkg/errors"
-
-	//	"github.com/timakin/airshooter/constant"
-	"github.com/k0kubun/pp"
 	m "github.com/timakin/airshooter/model"
 )
 
@@ -22,7 +18,6 @@ func InsertNotification(notification *m.Notification) (*m.Notification, error) {
 }
 
 func SelectNotification(id *int64) (*m.Notification, error) {
-	pp.Print(id)
 	dbConnection, err := GetDBInstance()
 	if err != nil {
 		return nil, err

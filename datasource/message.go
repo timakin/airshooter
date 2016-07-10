@@ -2,7 +2,6 @@ package datasource
 
 import (
 	m "github.com/timakin/airshooter/model"
-	"github.com/k0kubun/pp"
 )
 
 func InsertMessage(message *m.Message) (*m.Message, error) {
@@ -12,7 +11,6 @@ func InsertMessage(message *m.Message) (*m.Message, error) {
 	}
 
 	dbConnection.Create(&message)
-	pp.Print(message)
 	var saved m.Message
 	dbConnection.Preload("MessageSender").Preload("MessageRecipient").Last(&saved)
 
@@ -31,7 +29,6 @@ func SelectMessages(params *map[string]interface{}) (messages *[]m.Message, err 
 	return &selected, nil
 }
 
-// Select by recipientId and group by senderId
 func SelectThreads(recipientId *int64) (messages *[]m.Message, err error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {
