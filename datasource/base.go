@@ -1,13 +1,10 @@
 package datasource
 
 import (
-	//	"github.com/timakin/airshooter/config"
-	"github.com/timakin/airshooter/constant"
-
-	"github.com/pkg/errors"
-
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/pkg/errors"
+	"github.com/timakin/airshooter/constant"
 )
 
 var sharedInstance *gorm.DB
