@@ -9,8 +9,11 @@ import (
 
 func Init() *echo.Echo {
 	e := echo.New()
-	echopprof.Wrapper(e)
 
+	e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
+		SigningKey:  []byte("secret"),
+		TokenLookup: "query:token",
+	}))
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
@@ -20,5 +23,8 @@ func Init() *echo.Echo {
 	api := e.Group("/api")
 	AddNotificationAPI(api)
 	AddMessageAPI(api)
+
+	echopprof.Wrapper(e)
+
 	return e
 }
