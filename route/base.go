@@ -1,6 +1,7 @@
 package route
 
 import (
+	"github.com/echo-contrib/echopprof"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/timakin/airshooter/controller"
@@ -8,8 +9,11 @@ import (
 
 func Init() *echo.Echo {
 	e := echo.New()
+	echopprof.Wrapper(e)
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+
 	e.Use(controller.AuthClient)
 	e.Use(controller.ValidateRequest)
 
