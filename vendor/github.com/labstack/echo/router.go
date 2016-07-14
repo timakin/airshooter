@@ -5,7 +5,7 @@ type (
 	// request matching and URL path parameter parsing.
 	Router struct {
 		tree   *node
-		routes []Route
+		routes map[string]Route
 		echo   *Echo
 	}
 	node struct {
@@ -45,7 +45,7 @@ func NewRouter(e *Echo) *Router {
 		tree: &node{
 			methodHandler: new(methodHandler),
 		},
-		routes: []Route{},
+		routes: make(map[string]Route),
 		echo:   e,
 	}
 }
@@ -272,10 +272,10 @@ func (n *node) findHandler(method string) HandlerFunc {
 func (n *node) checkMethodNotAllowed() HandlerFunc {
 	for _, m := range methods {
 		if h := n.findHandler(m); h != nil {
-			return methodNotAllowedHandler
+			return MethodNotAllowedHandler
 		}
 	}
-	return notFoundHandler
+	return NotFoundHandler
 }
 
 // Find lookup a handler registed for method and path. It also parses URL for path

@@ -7,9 +7,9 @@ import (
 type (
 	// TrailingSlashConfig defines the config for TrailingSlash middleware.
 	TrailingSlashConfig struct {
-		// RedirectCode is the status code used when redirecting the request.
+		// Status code to be used when redirecting the request.
 		// Optional, but when provided the request is redirected using this code.
-		RedirectCode int
+		RedirectCode int `json:"redirect_code"`
 	}
 )
 
@@ -36,9 +36,13 @@ func AddTrailingSlashWithConfig(config TrailingSlashConfig) echo.MiddlewareFunc 
 				if qs != "" {
 					uri += "?" + qs
 				}
+
+				// Redirect
 				if config.RedirectCode != 0 {
 					return c.Redirect(config.RedirectCode, uri)
 				}
+
+				// Forward
 				req.SetURI(uri)
 				url.SetPath(path)
 			}
@@ -65,15 +69,19 @@ func RemoveTrailingSlashWithConfig(config TrailingSlashConfig) echo.MiddlewareFu
 			path := url.Path()
 			qs := url.QueryString()
 			l := len(path) - 1
-			if path != "/" && path[l] == '/' {
+			if l >= 0 && path != "/" && path[l] == '/' {
 				path = path[:l]
 				uri := path
 				if qs != "" {
 					uri += "?" + qs
 				}
+
+				// Redirect
 				if config.RedirectCode != 0 {
 					return c.Redirect(config.RedirectCode, uri)
 				}
+
+				// Forward
 				req.SetURI(uri)
 				url.SetPath(path)
 			}

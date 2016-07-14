@@ -9,7 +9,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/engine"
-	"github.com/labstack/gommon/log"
+	"github.com/labstack/echo/log"
 )
 
 type (
@@ -18,7 +18,7 @@ type (
 		*http.Request
 		header engine.Header
 		url    engine.URL
-		logger *log.Logger
+		logger log.Logger
 	}
 )
 
@@ -27,7 +27,7 @@ const (
 )
 
 // NewRequest returns `Request` instance.
-func NewRequest(r *http.Request, l *log.Logger) *Request {
+func NewRequest(r *http.Request, l log.Logger) *Request {
 	return &Request{
 		Request: r,
 		url:     &URL{URL: r.URL},
@@ -43,6 +43,8 @@ func (r *Request) IsTLS() bool {
 
 // Scheme implements `engine.Request#Scheme` function.
 func (r *Request) Scheme() string {
+	// Can't use `r.Request.URL.Scheme`
+	// See: https://groups.google.com/forum/#!topic/golang-nuts/pMUkBlQBDF0
 	if r.IsTLS() {
 		return "https"
 	}
@@ -64,6 +66,11 @@ func (r *Request) Header() engine.Header {
 	return r.header
 }
 
+// Referer implements `engine.Request#Referer` function.
+func (r *Request) Referer() string {
+	return r.Request.Referer()
+}
+
 // func Proto() string {
 // 	return r.request.Proto()
 // }
@@ -77,8 +84,8 @@ func (r *Request) Header() engine.Header {
 // }
 
 // ContentLength implements `engine.Request#ContentLength` function.
-func (r *Request) ContentLength() int {
-	return int(r.Request.ContentLength)
+func (r *Request) ContentLength() int64 {
+	return r.Request.ContentLength
 }
 
 // UserAgent implements `engine.Request#UserAgent` function.

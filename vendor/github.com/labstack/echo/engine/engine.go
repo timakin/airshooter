@@ -7,7 +7,7 @@ import (
 
 	"net"
 
-	"github.com/labstack/gommon/log"
+	"github.com/labstack/echo/log"
 )
 
 type (
@@ -17,7 +17,7 @@ type (
 		SetHandler(Handler)
 
 		// SetLogger sets the logger for the HTTP server.
-		SetLogger(*log.Logger)
+		SetLogger(log.Logger)
 
 		// Start starts the HTTP server.
 		Start() error
@@ -47,12 +47,20 @@ type (
 		// Header returns `engine.Header`.
 		Header() Header
 
-		// Proto() string
-		// ProtoMajor() int
-		// ProtoMinor() int
+		// Referer returns the referring URL, if sent in the request.
+		Referer() string
+
+		// Protocol returns the protocol version string of the HTTP request.
+		// Protocol() string
+
+		// ProtocolMajor returns the major protocol version of the HTTP request.
+		// ProtocolMajor() int
+
+		// ProtocolMinor returns the minor protocol version of the HTTP request.
+		// ProtocolMinor() int
 
 		// ContentLength returns the size of request's body.
-		ContentLength() int
+		ContentLength() int64
 
 		// UserAgent returns the client's `User-Agent`.
 		UserAgent() string
@@ -138,8 +146,11 @@ type (
 		// no values associated with the key, Get returns "".
 		Get(string) string
 
-		// Keys returns header keys.
+		// Keys returns the header keys.
 		Keys() []string
+
+		// Contains checks if the header is set.
+		Contains(string) bool
 	}
 
 	// URL defines the interface for HTTP request url.
@@ -188,8 +199,8 @@ type (
 	Config struct {
 		Address      string        // TCP address to listen on.
 		Listener     net.Listener  // Custom `net.Listener`. If set, server accepts connections on it.
-		TLSCertfile  string        // TLS certificate file path.
-		TLSKeyfile   string        // TLS key file path.
+		TLSCertFile  string        // TLS certificate file path.
+		TLSKeyFile   string        // TLS key file path.
 		ReadTimeout  time.Duration // Maximum duration before timing out read of the request.
 		WriteTimeout time.Duration // Maximum duration before timing out write of the response.
 	}

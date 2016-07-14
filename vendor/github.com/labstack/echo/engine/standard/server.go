@@ -6,7 +6,8 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/engine"
-	"github.com/labstack/gommon/log"
+	"github.com/labstack/echo/log"
+	glog "github.com/labstack/gommon/log"
 )
 
 type (
@@ -15,7 +16,7 @@ type (
 		*http.Server
 		config  engine.Config
 		handler engine.Handler
-		logger  *log.Logger
+		logger  log.Logger
 		pool    *pool
 	}
 
@@ -38,8 +39,8 @@ func New(addr string) *Server {
 func WithTLS(addr, certFile, keyFile string) *Server {
 	c := engine.Config{
 		Address:     addr,
-		TLSCertfile: certFile,
-		TLSKeyfile:  keyFile,
+		TLSCertFile: certFile,
+		TLSKeyFile:  keyFile,
 	}
 	return WithConfig(c)
 }
@@ -79,8 +80,10 @@ func WithConfig(c engine.Config) (s *Server) {
 		handler: engine.HandlerFunc(func(req engine.Request, res engine.Response) {
 			s.logger.Error("handler not set, use `SetHandler()` to set it.")
 		}),
-		logger: log.New("echo"),
+		logger: glog.New("echo"),
 	}
+	s.ReadTimeout = c.ReadTimeout
+	s.WriteTimeout = c.WriteTimeout
 	s.Addr = c.Address
 	s.Handler = s
 	return
@@ -92,7 +95,7 @@ func (s *Server) SetHandler(h engine.Handler) {
 }
 
 // SetLogger implements `engine.Server#SetLogger` function.
-func (s *Server) SetLogger(l *log.Logger) {
+func (s *Server) SetLogger(l log.Logger) {
 	s.logger = l
 }
 
@@ -106,8 +109,8 @@ func (s *Server) Start() error {
 
 func (s *Server) startDefaultListener() error {
 	c := s.config
-	if c.TLSCertfile != "" && c.TLSKeyfile != "" {
-		return s.ListenAndServeTLS(c.TLSCertfile, c.TLSKeyfile)
+	if c.TLSCertFile != "" && c.TLSKeyFile != "" {
+		return s.ListenAndServeTLS(c.TLSCertFile, c.TLSKeyFile)
 	}
 	return s.ListenAndServe()
 }
@@ -129,7 +132,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Response
 	res := s.pool.response.Get().(*Response)
 	resAdpt := s.pool.responseAdapter.Get().(*responseAdapter)
-	resAdpt.reset(w, res)
+	resAdpt.reset(res)
 	resHdr := s.pool.header.Get().(*Header)
 	resHdr.reset(w.Header())
 	res.reset(w, resAdpt, resHdr)
@@ -149,7 +152,7 @@ func WrapHandler(h http.Handler) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		req := c.Request().(*Request)
 		res := c.Response().(*Response)
-		h.ServeHTTP(res.ResponseWriter, req.Request)
+		h.ServeHTTP(res.adapter, req.Request)
 		return nil
 	}
 }
