@@ -9,11 +9,21 @@ import (
 
 func Init() *echo.Echo {
 	e := echo.New()
-	e.Use(middleware.JWT([]byte("secret")))
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.Use(controller.AuthClient)
+	// Login route
+	e.POST("/login", login)
+
+	// Unauthenticated route
+	e.GET("/", accessible)
+
+	// Restricted group
+	r := e.Group("/restricted")
+	r.Use(middleware.JWT([]byte("secret")))
+	r.GET("", restricted)
+
+	//	e.Use(controller.AuthClient)
 	e.Use(controller.ValidateRequest)
 
 	api := e.Group("/api")
