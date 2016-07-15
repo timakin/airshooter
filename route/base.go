@@ -9,11 +9,12 @@ import (
 
 func Init() *echo.Echo {
 	e := echo.New()
-
-	e.Use(middleware.JWTWithConfig(middleware.JWTConfig{
-		SigningKey:  []byte("secret"),
-		TokenLookup: "query:token",
-	}))
+	DefaultJWTConfig := JWTConfig{
+		SigningMethod: AlgorithmHS256,
+		ContextKey:    "user",
+		TokenLookup:   "header:" + echo.HeaderAuthorization,
+	}
+	e.Use(middleware.JWTWithConfig(DefaultJWTConfig))
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
