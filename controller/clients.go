@@ -9,6 +9,8 @@ import (
 )
 
 func Authenticate(c echo.Context) error {
+	// DBのclientsテーブルに保存されたclient_id & passwordと照合して、
+	// 正規のクライアントであればtokenを引き渡す
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
