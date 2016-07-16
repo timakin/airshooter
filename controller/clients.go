@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-func login(c echo.Context) error {
+func Login(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
@@ -32,11 +32,11 @@ func login(c echo.Context) error {
 	return echo.ErrUnauthorized
 }
 
-func accessible(c echo.Context) error {
+func Accessible(c echo.Context) error {
 	return c.String(http.StatusOK, "Accessible")
 }
 
-func restricted(c echo.Context) error {
+func Restricted(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 	name := claims["name"].(string)

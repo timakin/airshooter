@@ -13,15 +13,15 @@ func Init() *echo.Echo {
 	e.Use(middleware.Recover())
 
 	// Login route
-	e.POST("/login", login)
+	e.POST("/login", controller.Login)
 
 	// Unauthenticated route
-	e.GET("/", accessible)
+	e.GET("/", controller.Accessible)
 
 	// Restricted group
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
-	r.GET("", restricted)
+	r.GET("", controller.Restricted)
 
 	//	e.Use(controller.AuthClient)
 	e.Use(controller.ValidateRequest)
