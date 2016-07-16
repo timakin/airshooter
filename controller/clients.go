@@ -9,6 +9,7 @@ import (
 )
 
 func Authenticate(c echo.Context) error {
+	// Basic認証スキームを通してclient_id, client_secretをAPIに渡す。
 	// DBのclientsテーブルに保存されたclient_id & passwordと照合して、
 	// 正規のクライアントであればtokenを引き渡す
 	username := c.FormValue("username")
