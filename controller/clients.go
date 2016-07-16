@@ -14,14 +14,11 @@ func login(c echo.Context) error {
 
 	if username == "jon" && password == "shhh!" {
 		// Create token
-		token := jwt.New(jwt.SigningMethodHS256)
-
-		// Set claims
-		claims := token.Claims.(jwt.MapClaims)
-		claims["name"] = "Jon Snow"
-		claims["admin"] = true
-		claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"name":  "Jon Snow",
+			"admin": true,
+			"exp":   time.Now().Add(time.Hour * 72).Unix(),
+		})
 		// Generate encoded token and send it as response.
 		t, err := token.SignedString([]byte("secret"))
 		if err != nil {
