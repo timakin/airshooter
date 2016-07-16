@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-func Login(c echo.Context) error {
+func Authenticate(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 

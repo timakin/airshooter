@@ -12,9 +12,6 @@ func Init() *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// Login route
-	e.POST("/login", controller.Login)
-
 	// Unauthenticated route
 	e.GET("/", controller.Accessible)
 
@@ -22,9 +19,6 @@ func Init() *echo.Echo {
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
 	r.GET("", controller.Restricted)
-
-	//	e.Use(controller.AuthClient)
-	e.Use(controller.ValidateRequest)
 
 	api := e.Group("/api")
 	AddNotificationAPI(api)
