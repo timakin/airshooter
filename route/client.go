@@ -7,7 +7,7 @@ import (
 
 func AddClientAPI(e *echo.Group) (combined *echo.Group) {
 	combined = e.Group("/clients")
-	g.Use(middleware.BasicAuth(func(clientId, clientSecret string) bool {
+	combined.Use(middleware.BasicAuth(func(clientId, clientSecret string) bool {
 		if clientId == "joe" && clientSecret == "secret" {
 			return true
 		}
