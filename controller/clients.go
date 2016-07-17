@@ -6,7 +6,14 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
+
+func BasicAuth() echo.MiddlewareFunc {
+	return middleware.BasicAuth(func(clientId, clientSecret string) bool {
+		return clientId == "validUser" && clientSecret == "validPassword"
+	})
+}
 
 func Authenticate(c echo.Context) error {
 	// Basic認証スキームを通してclient_id, client_secretをAPIに渡す。
