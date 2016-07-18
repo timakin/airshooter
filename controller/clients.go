@@ -6,28 +6,20 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
 )
 
-func BasicAuth() echo.MiddlewareFunc {
-	return middleware.BasicAuth(func(clientId, clientSecret string) bool {
-		return clientId == "validUser" && clientSecret == "validPassword"
-	})
-}
-
 func Authenticate(c echo.Context) error {
-	// Basic認証スキームを通してclient_id, client_secretをAPIに渡す。
 	// DBのclientsテーブルに保存されたclient_id & passwordと照合して、
 	// 正規のクライアントであればtokenを引き渡す
-	username := c.FormValue("username")
-	password := c.FormValue("password")
+	clientId := c.FormValue("client_id")
+	clientSecret := c.FormValue("client_secret")
 
-	if username == "jon" && password == "shhh!" {
+	if clientId == "jon" && clientSecret == "shhh!" {
 		// Create token
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"client_id": clientId,
-			"admin":     true,
-			"exp":       time.Now().Add(time.Hour * 72).Unix(),
+			"aud": clientId,
+			"iss": "airshooter",
+			"exp": time.Now().Add(time.Hour * 72).Unix(),
 		})
 		// Generate encoded token and send it as response.
 		t, err := token.SignedString([]byte("secret"))

@@ -14,8 +14,9 @@ func ValidateToken(next echo.HandlerFunc) echo.HandlerFunc {
 		user := c.Get("user").(*jwt.Token)
 		// DBに登録されたtokenと照合して、validなclientかどうか検証する
 		claims := user.Claims.(jwt.MapClaims)
-		name := claims["name"].(string)
-		if name != "Jon Snow" {
+		clientId := claims["clientId"].(string)
+		exp := claims["exp"].(int64)
+		if name != "Jon Snow" && exp > time.Now().Unix() {
 			return c.String(http.StatusOK, "Failed "+name+"")
 		}
 		return next(c)
