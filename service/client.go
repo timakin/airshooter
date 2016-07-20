@@ -7,18 +7,18 @@ import (
 )
 
 func GetClient(clientId *string) (client *m.Client, err error) {
-	if results, err = db.SelectClient(clientId); err != nil {
+	if client, err = db.SelectClient(clientId); err != nil {
 		return nil, err
 	}
-	return results, ni
+	return client, nil
 }
 
 func InsertToken(token *m.AccessToken) (result *m.AccessToken, err error) {
 	createdAt := time.Now().Unix()
 	updatedAt := time.Now().Unix()
 
-	message.CreatedAt = &createdAt
-	message.UpdatedAt = &updatedAt
+	token.CreatedAt = &createdAt
+	token.UpdatedAt = &updatedAt
 
 	if result, err = db.InsertToken(token); err != nil {
 		return nil, err

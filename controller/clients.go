@@ -6,6 +6,8 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
+	m "github.com/timakin/airshooter/model"
+	s "github.com/timakin/airshooter/service"
 )
 
 func Authenticate(c echo.Context) error {
@@ -14,6 +16,11 @@ func Authenticate(c echo.Context) error {
 	clientId := c.FormValue("client_id")
 	clientSecret := c.FormValue("client_secret")
 
+	client := s.GetClient(&clientId)
+
+	if client.Secret != clientSecret {
+		return echo.ErrUnauthorized
+	}
 	if clientId == "jon" && clientSecret == "shhh!" {
 		// Create token
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
