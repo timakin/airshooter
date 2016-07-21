@@ -7,12 +7,6 @@ import (
 
 func AddClientAPI(e *echo.Group) (combined *echo.Group) {
 	combined = e.Group("/clients")
-	combined.Use(middleware.BasicAuth(func(clientId, clientSecret string) bool {
-		if clientId == "joe" && clientSecret == "secret" {
-			return true
-		}
-		return false
-	}))
 	combined.POST("/authenticate", controller.Authenticate)
 	return combined
 }

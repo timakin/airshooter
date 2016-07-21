@@ -26,26 +26,24 @@ func Authenticate(c echo.Context) error {
 	}
 
 	// Generate token
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+	payload := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"aud": clientId,
 		"iss": "airshooter",
 		"exp": time.Now().Add(time.Hour * 72).Unix(),
 	})
 	// Encode and sign a token and send it as a response.
-	t, err := token.SignedString([]byte("secret"))
+	signed, err := payload.SignedString([]byte("secret"))
 	if err != nil {
 		return err
 	}
 
-	tokenRecord := m.AccessToken{Token: &t}
-	accessToken, err := s.InsertToken(&tokenRecord)
+	token := m.AccessToken{Token: &signed}
+	accessToken, err := s.InsertToken(&token)
 	if err != nil {
 		return err
 	}
 
 	return c.JSON(http.StatusOK, map[string]string{
-		"token": t,
+		"token": *accessToken.Token,
 	})
-
-	return echo.ErrUnauthorized
 }
