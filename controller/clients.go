@@ -16,27 +16,32 @@ func Authenticate(c echo.Context) error {
 	clientId := c.FormValue("client_id")
 	clientSecret := c.FormValue("client_secret")
 
-	client := s.GetClient(&clientId)
+	client, err := s.GetClient(&clientId)
+	if err != nil {
+		return err
+	}
 
-	if client.Secret != clientSecret {
+	if *client.Secret != clientSecret {
 		return echo.ErrUnauthorized
 	}
-	if clientId == "jon" && clientSecret == "shhh!" {
-		// Create token
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"aud": clientId,
-			"iss": "airshooter",
-			"exp": time.Now().Add(time.Hour * 72).Unix(),
-		})
-		// Generate encoded token and send it as response.
-		t, err := token.SignedString([]byte("secret"))
-		if err != nil {
-			return err
-		}
-		return c.JSON(http.StatusOK, map[string]string{
-			"token": t,
-		})
+
+	// Generate token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"aud": clientId,
+		"iss": "airshooter",
+		"exp": time.Now().Add(time.Hour * 72).Unix(),
+	})
+	// Encode and sign a token and send it as a response.
+	t, err := token.SignedString([]byte("secret"))
+	if err != nil {
+		return err
 	}
+
+	tokenRecord := m.AccessToken{"Token": &t}
+
+	return c.JSON(http.StatusOK, map[string]string{
+		"token": t,
+	})
 
 	return echo.ErrUnauthorized
 }
