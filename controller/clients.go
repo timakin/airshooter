@@ -37,22 +37,15 @@ func Authenticate(c echo.Context) error {
 		return err
 	}
 
-	tokenRecord := m.AccessToken{"Token": &t}
+	tokenRecord := m.AccessToken{Token: &t}
+	accessToken, err := s.InsertToken(&tokenRecord)
+	if err != nil {
+		return err
+	}
 
 	return c.JSON(http.StatusOK, map[string]string{
 		"token": t,
 	})
 
 	return echo.ErrUnauthorized
-}
-
-func Accessible(c echo.Context) error {
-	return c.String(http.StatusOK, "Accessible")
-}
-
-func Restricted(c echo.Context) error {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(jwt.MapClaims)
-	clientId := claims["client_id"].(string)
-	return c.String(http.StatusOK, "Welcome "+clientId+"!")
 }
