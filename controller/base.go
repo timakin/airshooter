@@ -1,11 +1,15 @@
 package controller
 
 import (
+	s "github.com/timakin/airshooter/service"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"gopkg.in/go-playground/validator.v8"
+
 	"log"
 	"net/http"
+	"time"
 )
 
 func ValidateToken(next echo.HandlerFunc) echo.HandlerFunc {
@@ -16,8 +20,9 @@ func ValidateToken(next echo.HandlerFunc) echo.HandlerFunc {
 		claims := user.Claims.(jwt.MapClaims)
 		clientId := claims["clientId"].(string)
 		exp := claims["exp"].(int64)
-		if name != "Jon Snow" && exp > time.Now().Unix() {
-			return c.String(http.StatusOK, "Failed "+name+"")
+
+		if isInvalidToken(&clientId, &exp) {
+			return c.String(http.StatusUnauthorized, "Invalid Token.")
 		}
 		return next(c)
 	}
@@ -31,4 +36,13 @@ func ValidationHandler(target interface{}) error {
 	}
 
 	return nil
+}
+
+func isInvalidToken(clientId *string, exp *int64) bool {
+	client, err := s.GetClient(clientId)
+	if err != nil {
+		return false
+	}
+
+	return *client.UID == *clientId && *exp > time.Now().Unix()
 }

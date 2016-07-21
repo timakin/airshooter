@@ -32,6 +32,16 @@
 			"Rev": "3272df6c21d04180007eb3349844c89a3856bc25"
 		},
 		{
+			"ImportPath": "github.com/joho/godotenv",
+			"Comment": "v1-10-g4ed1339",
+			"Rev": "4ed13390c0acd2ff4e371e64d8b97c8954138243"
+		},
+		{
+			"ImportPath": "github.com/joho/godotenv/autoload",
+			"Comment": "v1-10-g4ed1339",
+			"Rev": "4ed13390c0acd2ff4e371e64d8b97c8954138243"
+		},
+		{
 			"ImportPath": "github.com/klauspost/compress/flate",
 			"Comment": "v1.0-12-g14eb9c4",
 			"Rev": "14eb9c4951195779ecfbec34431a976de7335b0a"

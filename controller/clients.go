@@ -2,9 +2,11 @@ package controller
 
 import (
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo"
 	m "github.com/timakin/airshooter/model"
 	s "github.com/timakin/airshooter/service"
@@ -28,11 +30,11 @@ func Authenticate(c echo.Context) error {
 	// Generate token
 	payload := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"aud": clientId,
-		"iss": "airshooter",
+		"iss": os.Getenv("TOKEN_ISSUER"),
 		"exp": time.Now().Add(time.Hour * 72).Unix(),
 	})
 	// Encode and sign a token and send it as a response.
-	signed, err := payload.SignedString([]byte("secret"))
+	signed, err := payload.SignedString([]byte(os.Getenv("TOKEN_SIGN_KEY")))
 	if err != nil {
 		return err
 	}

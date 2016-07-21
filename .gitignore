@@ -1,4 +1,5 @@
 vendor/
+.env
 .tags
 .tags1
 /vendor/
