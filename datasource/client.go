@@ -17,6 +17,19 @@ func SelectClient(clientId *string) (client *m.Client, err error) {
 	return &selected, nil
 }
 
+func InsertClient(client *m.Client) (*m.Client, error) {
+	dbConnection, err := GetDBInstance()
+	if err != nil {
+		return nil, err
+	}
+
+	dbConnection.Create(&client)
+	var saved m.Client
+	dbConnection.Last(&saved)
+
+	return &saved, nil
+}
+
 func InsertToken(token *m.AccessToken) (*m.AccessToken, error) {
 	dbConnection, err := GetDBInstance()
 	if err != nil {

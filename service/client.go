@@ -13,6 +13,19 @@ func GetClient(clientId *string) (client *m.Client, err error) {
 	return client, nil
 }
 
+func RegisterClient() (client *m.Client, err error) {
+	uid := 
+	secret := 
+	createdAt := time.Now().Unix()
+	updatedAt := time.Now().Unix()
+
+	if result, err := db.InsertClient(); err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
 func InsertToken(token *m.AccessToken) (result *m.AccessToken, err error) {
 	createdAt := time.Now().Unix()
 	updatedAt := time.Now().Unix()
