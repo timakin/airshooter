@@ -4,7 +4,6 @@ import (
 	"github.com/echo-contrib/echopprof"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/timakin/airshooter/controller"
 )
 
 func Init() *echo.Echo {
