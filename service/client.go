@@ -3,6 +3,7 @@ package service
 import (
 	db "github.com/timakin/airshooter/datasource"
 	m "github.com/timakin/airshooter/model"
+	sr "github.com/tuvistavie/securerandom"
 	"time"
 )
 
@@ -13,13 +14,20 @@ func GetClient(clientId *string) (client *m.Client, err error) {
 	return client, nil
 }
 
-func RegisterClient() (client *m.Client, err error) {
-	uid := 
-	secret := 
+func RegisterClient() (result *m.Client, err error) {
+	uid, _ := sr.Hex(10)
+	secret, _ := sr.Hex(10)
 	createdAt := time.Now().Unix()
 	updatedAt := time.Now().Unix()
 
-	if result, err := db.InsertClient(); err != nil {
+	client := m.Client{
+		UID:       &uid,
+		Secret:    &secret,
+		CreatedAt: &createdAt,
+		UpdatedAt: &updatedAt,
+	}
+
+	if result, err = db.InsertClient(&client); err != nil {
 		return nil, err
 	}
 
