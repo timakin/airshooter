@@ -14,7 +14,6 @@ import (
 
 func ValidateToken(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		log.Print("JWT Auth")
 		user := c.Get("user").(*jwt.Token)
 		// DBに登録されたtokenと照合して、validなclientかどうか検証する
 		claims := user.Claims.(jwt.MapClaims)

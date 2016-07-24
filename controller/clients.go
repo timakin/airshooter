@@ -12,6 +12,10 @@ import (
 	s "github.com/timakin/airshooter/service"
 )
 
+func Register(c echo.Context) error {
+
+}
+
 func Authenticate(c echo.Context) error {
 	// DBのclientsテーブルに保存されたclient_id & passwordと照合して、
 	// 正規のクライアントであればtokenを引き渡す
