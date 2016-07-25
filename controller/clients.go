@@ -13,7 +13,11 @@ import (
 )
 
 func Register(c echo.Context) error {
-
+	client, err := s.RegisterClient()
+	if err != nil {
+		return err
+	}
+	return c.JSON(http.StatusOK, client)
 }
 
 func Authenticate(c echo.Context) error {
