@@ -12,6 +12,10 @@ import (
 	s "github.com/timakin/airshooter/service"
 )
 
+func BasicAuth(c. echo.Context) error {
+
+}
+
 func Register(c echo.Context) error {
 	client, err := s.RegisterClient()
 	if err != nil {
