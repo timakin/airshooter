@@ -126,6 +126,10 @@
 			"Rev": "7efa461bd31efbfc388ecbedfc3feaf129eeed80"
 		},
 		{
+			"ImportPath": "github.com/tuvistavie/securerandom",
+			"Rev": "15512123a948d62f6361bd84818e11f2ad84059a"
+		},
+		{
 			"ImportPath": "github.com/valyala/fasthttp",
 			"Comment": "v20160419-10-g27e5b16",
 			"Rev": "27e5b1641e2ed8d076f460de9603f569b2662a68"
