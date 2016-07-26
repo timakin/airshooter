@@ -8,12 +8,15 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	m "github.com/timakin/airshooter/model"
 	s "github.com/timakin/airshooter/service"
 )
 
-func BasicAuth(c. echo.Context) error {
-
+func BasicAuthForRegistration() echo.MiddlewareFunc {
+	return middleware.BasicAuth(func(id, password string) bool {
+		return id == os.Getenv("CLIENT_REGISTRATION_BASICAUTH_ID") && password == os.Getenv("CLIENT_REGISTRATION_BASICAUTH_PASSWORD")
+	})
 }
 
 func Register(c echo.Context) error {
