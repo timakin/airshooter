@@ -1,0 +1,66 @@
+hash: 2fc83c2f4939349961d525903665723b413e534abffad0521447033ab4448dc6
+updated: 2016-07-29T00:14:48.43359553+09:00
+imports:
+- name: github.com/dgrijalva/jwt-go
+  version: ""
+- name: github.com/echo-contrib/echopprof
+  version: ""
+- name: github.com/go-sql-driver/mysql
+  version: ""
+- name: github.com/jinzhu/gorm
+  version: ""
+  subpackages:
+  - dialects/mysql
+- name: github.com/jinzhu/inflection
+  version: ""
+- name: github.com/joho/godotenv
+  version: ""
+  subpackages:
+  - autoload
+- name: github.com/klauspost/compress
+  version: ""
+  subpackages:
+  - flate
+  - gzip
+  - zlib
+- name: github.com/klauspost/cpuid
+  version: ""
+- name: github.com/klauspost/crc32
+  version: ""
+- name: github.com/labstack/echo
+  version: ""
+  subpackages:
+  - engine
+  - engine/fasthttp
+  - engine/standard
+  - log
+  - middleware
+- name: github.com/labstack/gommon
+  version: ""
+  subpackages:
+  - bytes
+  - color
+  - log
+- name: github.com/mattn/go-colorable
+  version: ""
+- name: github.com/mattn/go-isatty
+  version: ""
+- name: github.com/pkg/errors
+  version: ""
+- name: github.com/tuvistavie/securerandom
+  version: ""
+- name: github.com/valyala/fasthttp
+  version: ""
+- name: github.com/valyala/fasttemplate
+  version: ""
+- name: golang.org/x/net
+  version: ""
+  subpackages:
+  - context
+- name: golang.org/x/sys
+  version: ""
+  subpackages:
+  - unix
+- name: gopkg.in/go-playground/validator.v8
+  version: ""
+devImports: []

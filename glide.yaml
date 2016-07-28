@@ -1,0 +1,64 @@
+package: github.com/timakin/airshooter
+import:
+- package: github.com/dgrijalva/jwt-go
+  version: 01aeca54ebda6e0fbfafd0a524d234159c05ec20
+- package: github.com/echo-contrib/echopprof
+  version: 71944ac6a1ee29074acc8b0a5c65680e2620afe8
+- package: github.com/go-sql-driver/mysql
+  version: 527bcd55aab2e53314f1a150922560174b493034
+- package: github.com/jinzhu/gorm
+  version: 321d10b67b7218c5cf3bebc0c01fc8c4536c2bc7
+  subpackages:
+  - dialects/mysql
+- package: github.com/jinzhu/inflection
+  version: 3272df6c21d04180007eb3349844c89a3856bc25
+- package: github.com/joho/godotenv
+  version: 4ed13390c0acd2ff4e371e64d8b97c8954138243
+  subpackages:
+  - autoload
+- package: github.com/klauspost/compress
+  version: 14eb9c4951195779ecfbec34431a976de7335b0a
+  subpackages:
+  - flate
+  - gzip
+  - zlib
+- package: github.com/klauspost/cpuid
+  version: 09cded8978dc9e80714c4d85b0322337b0a1e5e0
+- package: github.com/klauspost/crc32
+  version: 19b0b332c9e4516a6370a0456e6182c3b5036720
+- package: github.com/labstack/echo
+  version: 98d744b8fb4bc78b19a0317b5521d736b7dbc25d
+  subpackages:
+  - engine
+  - engine/fasthttp
+  - engine/standard
+  - log
+  - middleware
+- package: github.com/labstack/gommon
+  version: 722aa12d41c236ce78ff48eac1cafe0107ecdc9d
+  subpackages:
+  - bytes
+  - color
+  - log
+- package: github.com/mattn/go-colorable
+  version: 9056b7a9f2d1f2d96498d6d146acd1f9d5ed3d59
+- package: github.com/mattn/go-isatty
+  version: 56b76bdf51f7708750eac80fa38b952bb9f32639
+- package: github.com/pkg/errors
+  version: 7efa461bd31efbfc388ecbedfc3feaf129eeed80
+- package: github.com/tuvistavie/securerandom
+  version: 15512123a948d62f6361bd84818e11f2ad84059a
+- package: github.com/valyala/fasthttp
+  version: 27e5b1641e2ed8d076f460de9603f569b2662a68
+- package: github.com/valyala/fasttemplate
+  version: 3b874956e03f1636d171bda64b130f9135f42cff
+- package: golang.org/x/net
+  version: 35ec611a141ee705590b9eb64d673f9e6dfeb1ac
+  subpackages:
+  - context
+- package: golang.org/x/sys
+  version: b776ec39b3e54652e09028aaaaac9757f4f8211a
+  subpackages:
+  - unix
+- package: gopkg.in/go-playground/validator.v8
+  version: 014792cf3e266caff1e916876be12282b33059e0
