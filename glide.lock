@@ -1,5 +1,5 @@
-hash: e35ba977a9da32c2728d975b598540b65556dfd33bacf5416415b93fa0d98b54
-updated: 2016-08-01T22:47:32.095467778+09:00
+hash: 679607d73821a8f46300297eb564386ad7541b9808bea78bea851635b4bffaca
+updated: 2016-08-01T22:55:27.144587991+09:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: ""
@@ -47,6 +47,8 @@ imports:
   version: ""
 - name: github.com/pkg/errors
   version: ""
+- name: github.com/smartystreets/goconvey
+  version: 4622128e06c77c0174e17a7f0ed2db19a989b473
 - name: github.com/tuvistavie/securerandom
   version: ""
 - name: github.com/valyala/fasthttp

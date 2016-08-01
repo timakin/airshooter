@@ -1,21 +1,20 @@
 package service
 
 import (
-	"io"
+	. "github.com/smartystreets/goconvey/convey"
 	"testing"
-
-	. "gopkg.in/check.v1"
 )
 
-func Test(t *testing.T) { TestingT(t) }
+func TestIntegerStuff(t *testing.T) {
+	Convey("Given some integer with a starting value", t, func() {
+		x := 1
 
-type TestSuite struct{}
+		Convey("When the integer is incremented", func() {
+			x++
 
-var _ = Suite(&TestSuite{})
-
-func (s *TestSuite) SetUpTest(c *C) {
-}
-
-func (s *TestSuite) TestGetClient(c *C) {
-	c.Assert(10, Equals, 10)
+			Convey("The value should be greater by one", func() {
+				So(x, ShouldEqual, 2)
+			})
+		})
+	})
 }
