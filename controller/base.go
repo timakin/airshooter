@@ -7,7 +7,6 @@ import (
 	"github.com/labstack/echo"
 	"gopkg.in/go-playground/validator.v8"
 
-	"log"
 	"net/http"
 	"time"
 )

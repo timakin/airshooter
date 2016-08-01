@@ -1,4 +1,4 @@
-package client_test
+package service
 
 import (
 	"io"
@@ -13,11 +13,9 @@ type TestSuite struct{}
 
 var _ = Suite(&TestSuite{})
 
-func (s *MySuite) SetUpTest(c *C) {
-	s.dir = c.MkDir()
-	// Use s.dir to prepare some data.
+func (s *TestSuite) SetUpTest(c *C) {
 }
 
 func (s *TestSuite) TestGetClient(c *C) {
-	c.Assert(1, Equals, m.Client{})
+	c.Assert(10, Equals, 10)
 }

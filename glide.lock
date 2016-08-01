@@ -1,5 +1,5 @@
-hash: 2fc83c2f4939349961d525903665723b413e534abffad0521447033ab4448dc6
-updated: 2016-07-29T00:14:48.43359553+09:00
+hash: e35ba977a9da32c2728d975b598540b65556dfd33bacf5416415b93fa0d98b54
+updated: 2016-08-01T22:47:32.095467778+09:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: ""
@@ -61,6 +61,8 @@ imports:
   version: ""
   subpackages:
   - unix
+- name: gopkg.in/check.v1
+  version: 4f90aeace3a26ad7021961c297b22c42160c7b25
 - name: gopkg.in/go-playground/validator.v8
   version: ""
 devImports: []

@@ -7,7 +7,7 @@ import (
 
 func AddClientAPI(e *echo.Group) (combined *echo.Group) {
 	combined = e.Group("/clients")
-	combined.POST("/register", controller.Register, controller.BasicAuthForRegistration)
+	combined.POST("/register", controller.Register, controller.BasicAuthForRegistration())
 	combined.POST("/authenticate", controller.Authenticate)
 	return combined
 }

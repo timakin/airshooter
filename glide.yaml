@@ -62,3 +62,4 @@ import:
   - unix
 - package: gopkg.in/go-playground/validator.v8
   version: 014792cf3e266caff1e916876be12282b33059e0
+- package: gopkg.in/check.v1
