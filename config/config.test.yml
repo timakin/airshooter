@@ -1,5 +1,5 @@
 DB:
-    Name:     airshooter
+    Name:     airshooter_test
     User:     root
     Password:
     Port:     3306
