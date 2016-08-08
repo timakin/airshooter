@@ -1,12 +1,16 @@
-hash: 679607d73821a8f46300297eb564386ad7541b9808bea78bea851635b4bffaca
-updated: 2016-08-01T22:55:27.144587991+09:00
+hash: e8ffe13bbaf882a6c939e8165d9f763caf16bd3735c74637e3d4c83e54757075
+updated: 2016-08-09T00:14:36.757692969+09:00
 imports:
+- name: github.com/BurntSushi/toml
+  version: 99064174e013895bbd9b025c31100bd1d9b590ca
 - name: github.com/dgrijalva/jwt-go
   version: ""
 - name: github.com/echo-contrib/echopprof
   version: ""
 - name: github.com/go-sql-driver/mysql
   version: ""
+- name: github.com/jinzhu/configor
+  version: fb7a3183cd987802d006408fe3a4a9e1f6002ece
 - name: github.com/jinzhu/gorm
   version: ""
   subpackages:
@@ -67,4 +71,6 @@ imports:
   version: 4f90aeace3a26ad7021961c297b22c42160c7b25
 - name: gopkg.in/go-playground/validator.v8
   version: ""
+- name: gopkg.in/yaml.v2
+  version: e4d366fc3c7938e2958e662b4258c7a89e1f0e3e
 devImports: []
