@@ -2,10 +2,13 @@ package service
 
 import (
 	. "github.com/smartystreets/goconvey/convey"
+	db "github.com/timakin/airshooter/datasource"
 	"testing"
 )
 
 func TestIntegerStuff(t *testing.T) {
+	dbConnection := db.getInstance()
+	dbConnection.Initialize()
 	Convey("Given some integer with a starting value", t, func() {
 		x := 1
 
@@ -16,5 +19,9 @@ func TestIntegerStuff(t *testing.T) {
 				So(x, ShouldEqual, 2)
 			})
 		})
+	})
+
+	Reset(func() {
+		dbConnection.Close()
 	})
 }
