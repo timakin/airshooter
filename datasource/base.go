@@ -3,6 +3,7 @@ package datasource
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 	"github.com/timakin/airshooter/config"
 	"github.com/timakin/airshooter/constant"
@@ -20,7 +21,9 @@ var sharedInstance *gorm.DB
 func GetDBInstance() (*gorm.DB, error) {
 	if sharedInstance == nil {
 		setting := config.Load()
+		pp.Print(setting.DB)
 		address := setting.DB.User + ":" + setting.DB.Password + "@" + strconv.Itoa(int(setting.DB.Port)) + "/" + setting.DB.Name + "?charset=utf8&parseTime=True&loc=Local"
+		fmt.Println(address)
 		db, err := gorm.Open("mysql", address)
 		if err != nil {
 			return nil, errors.Wrap(err, constant.ErrDBConnectionFailed)

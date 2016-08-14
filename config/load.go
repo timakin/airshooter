@@ -6,6 +6,8 @@ import (
 )
 
 type Config struct {
+	AppPort string `default:"4000"`
+
 	DB struct {
 		Name     string
 		User     string `default:"root"`
@@ -16,7 +18,7 @@ type Config struct {
 
 func Load() *Config {
 	loaded := &Config{}
-	absConfigPath, _ := filepath.Abs("./config.yml")
-	configor.Load(loaded, absConfigPath)
+	configPath, _ := filepath.Abs("./config.yml")
+	configor.Load(loaded, configPath)
 	return loaded
 }

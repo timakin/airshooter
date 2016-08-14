@@ -8,5 +8,6 @@ import (
 
 func main() {
 	server := route.Init()
-	server.Run(standard.New(config.Port))
+	settings := config.Load()
+	server.Run(standard.New(settings.AppPort))
 }

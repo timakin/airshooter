@@ -1,3 +1,5 @@
+AppPort: 4000
+
 DB:
     Name:     airshooter_test
     User:     root

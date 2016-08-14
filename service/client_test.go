@@ -8,6 +8,7 @@ import (
 
 func TestIntegerStuff(t *testing.T) {
 	db.Init()
+
 	Convey("Given some integer with a starting value", t, func() {
 		x := 1
 
@@ -21,6 +22,6 @@ func TestIntegerStuff(t *testing.T) {
 	})
 
 	Reset(func() {
-		dbConnection.Close()
+		db.Close()
 	})
 }
